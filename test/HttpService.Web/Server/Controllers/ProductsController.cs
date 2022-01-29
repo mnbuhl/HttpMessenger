@@ -6,6 +6,8 @@ using Microsoft.EntityFrameworkCore;
 
 namespace HttpService.Web.Server.Controllers;
 
+[ApiController]
+[Route("api/[controller]")]
 public class ProductsController : ControllerBase
 {
     private readonly AppDbContext _context;
@@ -15,6 +17,7 @@ public class ProductsController : ControllerBase
         _context = context;
     }
 
+    [HttpGet]
     public async Task<ActionResult<IList<ProductDto>>> Index()
     {
         var products = await _context.Products.Select(p => p.ToDto()).ToListAsync();
