@@ -9,15 +9,17 @@ public record ProductDto(
     DateTime UpdatedAt
 );
 
-public record CreateProductDto(
-    string? Name,
-    string? Description,
-    long Price
-);
+public class CreateProductDto
+{
+    public string? Name { get; set; }
+    public string? Description { get; set; }
+    public long Price { get; set; }
+}
 
-public record UpdateProductDto(
-    Guid Id,
-    string? Name,
-    string? Description,
-    long Price
-);
+public class UpdateProductDto
+{
+    public Guid Id { get; set; }
+    public string? Name { get; set; }
+    public string? Description { get; set; }
+    public long Price { get; set; }
+}

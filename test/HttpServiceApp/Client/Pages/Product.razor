@@ -5,12 +5,13 @@
 
 <h1>Product</h1>
 
-<input @bind="@_id" />
-<button @onclick="GetProduct">Search</button>
+<div style="margin-bottom: 20px">
+    <input @bind="@_id" />
+    <button @onclick="GetProduct">Search</button>
+</div>
 
 @if (_product != null)
 {
-    <br/>
     <SingleProduct Product="_product" />
 }
 

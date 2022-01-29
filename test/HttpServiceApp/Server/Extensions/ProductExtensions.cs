@@ -29,4 +29,14 @@ public static class ProductExtensions
             UpdatedAt = product.UpdatedAt
         };
     }
+    
+    public static Product FromCreateDto(this CreateProductDto product)
+    {
+        return new Product
+        {
+            Name = product.Name,
+            Description = product.Name,
+            Price = product.Price,
+        };
+    }
 }

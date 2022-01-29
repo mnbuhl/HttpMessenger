@@ -35,4 +35,18 @@ public class ProductsController : ControllerBase
 
         return Ok(product.ToDto());
     }
+
+    [HttpPost]
+    public async Task<ActionResult<ProductDto>> Store(CreateProductDto productDto)
+    {
+        var product = productDto.FromCreateDto();
+        _context.Products.Add(product);
+
+        bool success = await _context.SaveChangesAsync() > 0;
+        
+        if (!success)
+            return BadRequest("Could not create product");
+        
+        return CreatedAtAction("Show", new { id = product.Id }, product.ToDto());
+    }
 }

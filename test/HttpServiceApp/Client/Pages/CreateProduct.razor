@@ -1,0 +1,41 @@
+﻿@page "/products/create"
+@using HttpService.Service
+
+<PageTitle>Create Product</PageTitle>
+
+<h1>Create Product</h1>
+
+<EditForm Model="_product" OnSubmit="OnSubmit">
+    <div style="margin-bottom: 10px">
+        <InputText @bind-Value="_product.Name" placeholder="Product name..."/>
+    </div>
+    <div  style="margin-bottom: 10px">
+        <InputNumber @bind-Value="_product.Price" placeholder="Product price..."/>
+    </div>
+    <div  style="margin-bottom: 10px">
+        <InputTextArea @bind-Value="_product.Description" placeholder="Product description..."/>
+    </div>
+    <button type="submit">Submit</button>
+</EditForm>
+
+@code {
+
+    [Inject]
+    private IHttpService? HttpService { get; set; }
+
+    private CreateProductDto _product = new CreateProductDto();
+
+    private async Task OnSubmit()
+    {
+        if (HttpService == null)
+            return;
+        
+        var response = await HttpService.Post<CreateProductDto, ProductDto>("/api/products", _product);
+        
+        if (response.Success)
+        {
+            _product = new CreateProductDto();
+        }
+    }
+
+}
