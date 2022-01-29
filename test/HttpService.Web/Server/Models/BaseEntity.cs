@@ -6,7 +6,7 @@ public abstract class BaseEntity
 {
     public Guid Id { get; set; }
     
-    [Column(Order = int.MaxValue)]
+    [Column(Order = int.MaxValue - 1)]
     public DateTime CreatedAt { get; set; } = DateTime.Now;
     
     [Column(Order = int.MaxValue)]
