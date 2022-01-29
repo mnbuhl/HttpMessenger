@@ -3,11 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.31912.275
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HttpService", "src\HttpService\HttpService.csproj", "{9FD25C06-DAC6-4CB9-BF6C-FDEB3D3461AB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HttpService", "src\HttpService\HttpService.csproj", "{9FD25C06-DAC6-4CB9-BF6C-FDEB3D3461AB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HttpService.Web.Client", "test\HttpService.Web\Client\HttpService.Web.Client.csproj", "{B8E877D2-B148-4915-BBF6-5E8EA0A3353A}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{C581D648-6436-4F3C-BFBE-B38375CDF4F2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HttpService.Web.Server", "test\HttpService.Web\Server\HttpService.Web.Server.csproj", "{EA7CEC8E-EAEC-4426-8B2C-31893953F4C0}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HttpServiceApp.Server", "test\HttpServiceApp\Server\HttpServiceApp.Server.csproj", "{83A92498-B780-4014-9C0D-A5653931035A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HttpServiceApp.Client", "test\HttpServiceApp\Client\HttpServiceApp.Client.csproj", "{06277B48-32A7-4FFC-BD51-B65CC957BD2F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HttpServiceApp.Shared", "test\HttpServiceApp\Shared\HttpServiceApp.Shared.csproj", "{2D164CFD-4821-4FBA-BE6D-1F0C1BD84FC3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -19,17 +23,26 @@ Global
 		{9FD25C06-DAC6-4CB9-BF6C-FDEB3D3461AB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9FD25C06-DAC6-4CB9-BF6C-FDEB3D3461AB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9FD25C06-DAC6-4CB9-BF6C-FDEB3D3461AB}.Release|Any CPU.Build.0 = Release|Any CPU
-		{B8E877D2-B148-4915-BBF6-5E8EA0A3353A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{B8E877D2-B148-4915-BBF6-5E8EA0A3353A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{B8E877D2-B148-4915-BBF6-5E8EA0A3353A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{B8E877D2-B148-4915-BBF6-5E8EA0A3353A}.Release|Any CPU.Build.0 = Release|Any CPU
-		{EA7CEC8E-EAEC-4426-8B2C-31893953F4C0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{EA7CEC8E-EAEC-4426-8B2C-31893953F4C0}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{EA7CEC8E-EAEC-4426-8B2C-31893953F4C0}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{EA7CEC8E-EAEC-4426-8B2C-31893953F4C0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{83A92498-B780-4014-9C0D-A5653931035A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{83A92498-B780-4014-9C0D-A5653931035A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{83A92498-B780-4014-9C0D-A5653931035A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{83A92498-B780-4014-9C0D-A5653931035A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{06277B48-32A7-4FFC-BD51-B65CC957BD2F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{06277B48-32A7-4FFC-BD51-B65CC957BD2F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{06277B48-32A7-4FFC-BD51-B65CC957BD2F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{06277B48-32A7-4FFC-BD51-B65CC957BD2F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2D164CFD-4821-4FBA-BE6D-1F0C1BD84FC3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2D164CFD-4821-4FBA-BE6D-1F0C1BD84FC3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2D164CFD-4821-4FBA-BE6D-1F0C1BD84FC3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2D164CFD-4821-4FBA-BE6D-1F0C1BD84FC3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{83A92498-B780-4014-9C0D-A5653931035A} = {C581D648-6436-4F3C-BFBE-B38375CDF4F2}
+		{06277B48-32A7-4FFC-BD51-B65CC957BD2F} = {C581D648-6436-4F3C-BFBE-B38375CDF4F2}
+		{2D164CFD-4821-4FBA-BE6D-1F0C1BD84FC3} = {C581D648-6436-4F3C-BFBE-B38375CDF4F2}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {D9F27D8C-126A-401B-9F60-845BE936AE1C}

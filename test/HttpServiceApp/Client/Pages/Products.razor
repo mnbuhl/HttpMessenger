@@ -1,0 +1,33 @@
+﻿@page "/products"
+@using HttpService.Service
+
+<PageTitle>Products</PageTitle>
+
+<h1>Products</h1>
+
+@if (_products.Count > 0)
+{
+    @foreach (var product in _products)
+    {
+        <SingleProduct Product="product" />
+    }
+}
+
+
+@code {
+
+    [Inject]
+    private IHttpService? HttpService { get; set; }
+
+    private IList<ProductDto> _products = new List<ProductDto>();
+
+    protected override async Task OnInitializedAsync()
+    {
+        if (HttpService == null)
+            return;
+
+        var products = await HttpService.Get<IList<ProductDto>>("products");
+        _products = products.Data!;
+    }
+
+}

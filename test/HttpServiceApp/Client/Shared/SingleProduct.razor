@@ -1,0 +1,36 @@
+﻿@if (Product != null)
+{
+    <table class="product-table">
+        <tr>
+            <td>Id:</td>
+            <td>@Product.Id</td>
+        </tr>
+        <tr>
+            <td>Name:</td>
+            <td>@Product.Name</td>
+        </tr>
+        <tr>
+            <td>Price:</td>
+            <td>$@(Convert.ToDouble(Product.Price) / 100)</td>
+        </tr>
+        <tr>
+            <td>Description:</td>
+            <td>@Product.Description</td>
+        </tr>
+        <tr>
+            <td>Created At:</td>
+            <td>@Product.CreatedAt.ToShortDateString() @Product.CreatedAt.ToShortTimeString()</td>
+        </tr>
+        <tr>
+            <td>Updated At:</td>
+            <td>@Product.UpdatedAt.ToShortDateString() @Product.CreatedAt.ToShortTimeString()</td>
+        </tr>
+    </table>
+}
+
+@code {
+
+    [Parameter]
+    public ProductDto? Product { get; set; }
+
+}
