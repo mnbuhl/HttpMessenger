@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.31912.275
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HttpService", "HttpService\HttpService.csproj", "{E4547EE0-0606-4586-809E-5626006C5452}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HttpService", "src\HttpService\HttpService.csproj", "{9FD25C06-DAC6-4CB9-BF6C-FDEB3D3461AB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HttpService.Web.Server", "HttpService.Web\Server\HttpService.Web.Server.csproj", "{93DD054F-B4B3-4ED3-84E9-78EFCDD4EE31}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HttpService.Web.Client", "test\HttpService.Web\Client\HttpService.Web.Client.csproj", "{B8E877D2-B148-4915-BBF6-5E8EA0A3353A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HttpService.Web.Client", "HttpService.Web\Client\HttpService.Web.Client.csproj", "{71192996-744D-411A-97E3-B27C13DA8DDA}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HttpService.Web.Server", "test\HttpService.Web\Server\HttpService.Web.Server.csproj", "{EA7CEC8E-EAEC-4426-8B2C-31893953F4C0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,18 +15,18 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{E4547EE0-0606-4586-809E-5626006C5452}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{E4547EE0-0606-4586-809E-5626006C5452}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{E4547EE0-0606-4586-809E-5626006C5452}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{E4547EE0-0606-4586-809E-5626006C5452}.Release|Any CPU.Build.0 = Release|Any CPU
-		{93DD054F-B4B3-4ED3-84E9-78EFCDD4EE31}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{93DD054F-B4B3-4ED3-84E9-78EFCDD4EE31}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{93DD054F-B4B3-4ED3-84E9-78EFCDD4EE31}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{93DD054F-B4B3-4ED3-84E9-78EFCDD4EE31}.Release|Any CPU.Build.0 = Release|Any CPU
-		{71192996-744D-411A-97E3-B27C13DA8DDA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{71192996-744D-411A-97E3-B27C13DA8DDA}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{71192996-744D-411A-97E3-B27C13DA8DDA}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{71192996-744D-411A-97E3-B27C13DA8DDA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9FD25C06-DAC6-4CB9-BF6C-FDEB3D3461AB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9FD25C06-DAC6-4CB9-BF6C-FDEB3D3461AB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9FD25C06-DAC6-4CB9-BF6C-FDEB3D3461AB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9FD25C06-DAC6-4CB9-BF6C-FDEB3D3461AB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B8E877D2-B148-4915-BBF6-5E8EA0A3353A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B8E877D2-B148-4915-BBF6-5E8EA0A3353A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B8E877D2-B148-4915-BBF6-5E8EA0A3353A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B8E877D2-B148-4915-BBF6-5E8EA0A3353A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EA7CEC8E-EAEC-4426-8B2C-31893953F4C0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EA7CEC8E-EAEC-4426-8B2C-31893953F4C0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EA7CEC8E-EAEC-4426-8B2C-31893953F4C0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EA7CEC8E-EAEC-4426-8B2C-31893953F4C0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
