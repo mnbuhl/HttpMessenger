@@ -1,0 +1,40 @@
+﻿@page "/product"
+@using HttpService.Service
+
+<PageTitle>Product</PageTitle>
+
+<h1>Product</h1>
+
+<input @bind="@_id" />
+<button @onclick="GetProduct">Search</button>
+
+@if (_product != null)
+{
+    <br/>
+    <SingleProduct Product="_product" />
+}
+
+
+
+@code {
+
+    [Inject]
+    private IHttpService? HttpService { get; set; }
+
+    private string _id = string.Empty;
+
+    private ProductDto? _product;
+
+    private async Task GetProduct()
+    {
+        if (HttpService == null)
+            return;
+        
+        var response = await HttpService.Get<ProductDto>("products/" + _id);
+        
+        if (response.Data == null)
+            return;
+
+        _product = response.Data;
+    }
+}

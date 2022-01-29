@@ -23,4 +23,16 @@ public class ProductsController : ControllerBase
         var products = await _context.Products.Select(p => p.ToDto()).ToListAsync();
         return Ok(products);
     }
+
+    [HttpGet("{id}")]
+    public async Task<ActionResult<ProductDto>> Show(Guid id)
+    {
+        var product = await _context.Products.FindAsync(id);
+        
+        if (product == null)
+            return NotFound();
+        
+
+        return Ok(product.ToDto());
+    }
 }
