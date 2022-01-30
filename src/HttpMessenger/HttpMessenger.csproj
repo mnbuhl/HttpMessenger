@@ -8,7 +8,7 @@
     <PackageId>HttpMessenger</PackageId>
     <Title>HttpMessenger</Title>
     <RepositoryType>git</RepositoryType>
-    <RepositoryUrl>https://github.com/mnbuhl/HttpService</RepositoryUrl>
+    <RepositoryUrl>https://github.com/mnbuhl/HttpMessenger</RepositoryUrl>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <Authors>Mikkel Buhl</Authors>
     <Description>A simple HttpMessenger that makes it easy to make type strong requests in ASP.NET Core Web Applications (Blazor, MVC and Razor)</Description>

@@ -1,6 +1,6 @@
-# HttpService
+# HttpMessenger
 
-HttpService is a service that provides a simple generic wrapper around the HttpClient and makes it easier to make requests to an API.
+HttpMessenger is a service that provides a simple generic wrapper around the HttpClient and makes it easier to make requests to an API.
 
 ## Usage guide
 ### Install the package
@@ -17,9 +17,9 @@ builder.Services.AddScoped(sp => new HttpClient
 });
 ```
 
-Then add the HttpService service to your Dependency Injection container
+Then add the HttpMessenger service to your Dependency Injection container
 ```c#
-builder.Services.AddHttpService();
+builder.Services.AddHttpMessenger();
 ```
 
 Startup.cs (.NET 6 <) Example:
@@ -30,9 +30,9 @@ services.AddScoped(sp => new HttpClient
 });
 ```
 
-Then add the HttpService service to your Dependency Injection container
+Then add the HttpMessenger service to your Dependency Injection container
 ```c#
-services.AddHttpService();
+services.AddHttpMessenger();
 ```
 
 ### Usage
@@ -42,16 +42,16 @@ The service is now available to use and can be injected into Blazor components, 
 #### Blazor component example
 ```c#
 // Can be injected like this
-@inject IHttpService _httpService
+@inject IHttpMessenger _httpMessenger
 
 @code {
     // or this
     [Inject]
-    private IHttpService HttpService { get; set; }
+    private IHttpMessenger HttpMessenger { get; set; }
     
     protected override async Task OnInitializedAsync()
     {
-        var response = await HttpService.Get<IList<ProductDto>>("products");
+        var response = await HttpMessenger.Get<IList<ProductDto>>("products");
         _products = response.Data;
     }
 }
@@ -61,17 +61,17 @@ The service is now available to use and can be injected into Blazor components, 
 ```c#
 public class ProductsController : Controller
 {
-    private readonly IHttpService _httpService;
+    private readonly IHttpMessenger _httpMessenger;
     
-    public ProductsController(IHttpService httpService)
+    public ProductsController(IHttpMessenger httpMessenger)
     {
-        _httpService = httpService;
+        _httpMessenger = httpMessenger;
     }
     
     [HttpGet]
     public async Task<IActionResult> Index()
     {
-        var response = await _httpService.Get<IList<ProductDto>>("products");
+        var response = await _httpMessenger.Get<IList<ProductDto>>("products");
         return View(response.Data);
     }
 ```
@@ -80,23 +80,23 @@ public class ProductsController : Controller
 ```c#
 public class ProductsService : IProductsService
 {
-    private readonly IHttpService _httpService;
+    private readonly IHttpMessenger _httpMessenger;
     private const string Endpoint = "api/products";
     
-    public ProductsService(IHttpService httpService)
+    public ProductsService(IHttpMessenger httpMessenger)
     {
-        _httpService = httpService;
+        _httpMessenger = httpMessenger;
     }
     
     public async Task<List<ProductDto>> GetProducts()
     {
-        var response = await _httpService.Get<List<ProductDto>>(Endpoint);
+        var response = await _httpMessenger.Get<List<ProductDto>>(Endpoint);
         return response.Data;
     }
     
     public async Task<ProductDto> CreateProduct(CreateProductDto product)
     {
-        var response = await _httpService.Post<CreateProductDto, ProductDto>(Endpoint, product);
+        var response = await _httpMessenger.Post<CreateProductDto, ProductDto>(Endpoint, product);
         return response.Data;
     }
 }
