@@ -1,6 +1,6 @@
 # HttpMessenger
 
-HttpMessenger is a service that provides a simple generic wrapper around the HttpClient and makes it easier to make requests to an API.
+HttpMessenger is a service for ASP.NET Core that provides a simple generic wrapper around the HttpClient and makes it easier to make requests to an API.
 
 ## Usage guide
 ### Install the package
@@ -14,7 +14,7 @@ dotnet CLI:
 dotnet add package HttpMessenger
 ```
 
-Or simply use the NuGet Gallery.
+Or simply get it from the [NuGet Gallery](https://www.nuget.org/packages/HttpMessenger/).
 
 ### Add the service to your app
 Configure your HttpClient in the dependency injection container like you normally would.
