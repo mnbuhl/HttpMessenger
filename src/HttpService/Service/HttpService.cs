@@ -22,12 +22,12 @@ public class HttpService : IHttpService
         if (!response.IsSuccessStatusCode)
         {
             string errorMessage = await response.Content.ReadAsStringAsync();
-            return new ResponseWrapper<T?>(false, default, response.StatusCode, errorMessage);
+            return new ResponseWrapper<T?>(false, default, (int)response.StatusCode, errorMessage);
         }
 
         var data = await response.Content.ReadFromJsonAsync<T>(Options);
 
-        return new ResponseWrapper<T?>(true, data, response.StatusCode);
+        return new ResponseWrapper<T?>(true, data, (int)response.StatusCode);
     }
 
     public async Task<ResponseWrapper<TResponse?>> Post<T, TResponse>(string url, T data)
@@ -37,12 +37,12 @@ public class HttpService : IHttpService
         if (!response.IsSuccessStatusCode)
         {
             string errorMessage = await response.Content.ReadAsStringAsync();
-            return new ResponseWrapper<TResponse?>(false, default, response.StatusCode, errorMessage);
+            return new ResponseWrapper<TResponse?>(false, default, (int)response.StatusCode, errorMessage);
         }
 
         var dataResponse = await response.Content.ReadFromJsonAsync<TResponse>(Options);
         
-        return new ResponseWrapper<TResponse?>(true, dataResponse, response.StatusCode);
+        return new ResponseWrapper<TResponse?>(true, dataResponse, (int)response.StatusCode);
     }
 
     public async Task<ResponseWrapper> Post<T>(string url, T data)
@@ -52,10 +52,10 @@ public class HttpService : IHttpService
         if (!response.IsSuccessStatusCode)
         {
             string errorMessage = await response.Content.ReadAsStringAsync();
-            return new ResponseWrapper(false, response.StatusCode, errorMessage);
+            return new ResponseWrapper(false, (int)response.StatusCode, errorMessage);
         }
 
-        return new ResponseWrapper(true, response.StatusCode);
+        return new ResponseWrapper(true, (int)response.StatusCode);
     }
 
     public async Task<ResponseWrapper> Put<T>(string url, T data)
@@ -65,10 +65,10 @@ public class HttpService : IHttpService
         if (!response.IsSuccessStatusCode)
         {
             string errorMessage = await response.Content.ReadAsStringAsync();
-            return new ResponseWrapper(false, response.StatusCode, errorMessage);
+            return new ResponseWrapper(false, (int)response.StatusCode, errorMessage);
         }
 
-        return new ResponseWrapper(true, response.StatusCode);
+        return new ResponseWrapper(true, (int)response.StatusCode);
     }
 
     public async Task<ResponseWrapper> Patch<T>(string url, T data)
@@ -78,10 +78,10 @@ public class HttpService : IHttpService
         if (!response.IsSuccessStatusCode)
         {
             string errorMessage = await response.Content.ReadAsStringAsync();
-            return new ResponseWrapper(false, response.StatusCode, errorMessage);
+            return new ResponseWrapper(false, (int)response.StatusCode, errorMessage);
         }
 
-        return new ResponseWrapper(true, response.StatusCode);
+        return new ResponseWrapper(true, (int)response.StatusCode);
     }
 
     public async Task<ResponseWrapper> Delete(string url)
@@ -91,10 +91,10 @@ public class HttpService : IHttpService
         if (!response.IsSuccessStatusCode)
         {
             string errorMessage = await response.Content.ReadAsStringAsync();
-            return new ResponseWrapper(false, response.StatusCode, errorMessage);
+            return new ResponseWrapper(false, (int)response.StatusCode, errorMessage);
         }
         
-        return new ResponseWrapper(true, response.StatusCode);
+        return new ResponseWrapper(true, (int)response.StatusCode);
     }
 
 
@@ -102,7 +102,7 @@ public class HttpService : IHttpService
     {
         PropertyNameCaseInsensitive = true,
         ReferenceHandler = ReferenceHandler.IgnoreCycles,
-        PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
+        PropertyNamingPolicy = JsonNamingPolicy.CamelCase
     };
     
 }
