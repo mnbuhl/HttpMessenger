@@ -5,10 +5,13 @@
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageOutputPath>./nupkg</PackageOutputPath>
     <PackageVersion>1.0.0</PackageVersion>
-    <Title>Mnb.HttpService</Title>
+    <PackageId>HttpMessenger</PackageId>
+    <Title>HttpMessenger</Title>
+    <RepositoryType>git</RepositoryType>
+    <RepositoryUrl>https://github.com/mnbuhl/HttpService</RepositoryUrl>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <Authors>Mikkel Buhl</Authors>
-    <Description>A simple HttpService that makes it easy to make type strong requests in ASP.NET Core Web Applications (Blazor, MVC and Razor)</Description>
-    <PackageId>Mnb.HttpService</PackageId>
+    <Description>A simple HttpMessenger that makes it easy to make type strong requests in ASP.NET Core Web Applications (Blazor, MVC and Razor)</Description>
   </PropertyGroup>
 
   <ItemGroup>
