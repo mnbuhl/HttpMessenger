@@ -8,6 +8,7 @@
     <Title>Mnb.HttpService</Title>
     <Authors>Mikkel Buhl</Authors>
     <Description>A simple HttpService that makes it easy to make type strong requests in ASP.NET Core Web Applications (Blazor, MVC and Razor)</Description>
+    <PackageId>Mnb.HttpService</PackageId>
   </PropertyGroup>
 
   <ItemGroup>
