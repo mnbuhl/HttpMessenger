@@ -1,6 +1,6 @@
 ﻿@page "/products/edit/{id}"
-@using HttpService.Service
-@using HttpService.Helpers
+@using HttpMessenger.Service
+@using HttpMessenger.Helpers
 
 <h3>EditProduct</h3>
 
@@ -33,7 +33,7 @@
     public string Id { get; set; } = string.Empty;
 
     [Inject]
-    public IHttpService? HttpService { get; set; }
+    public IHttpMessenger? HttpMessenger { get; set; }
     
     [Inject]
     private NavigationManager? NavigationManager { get; set; }
@@ -43,10 +43,10 @@
 
     protected override async Task OnParametersSetAsync()
     {
-        if (HttpService == null)
+        if (HttpMessenger == null)
             return;
 
-        var response = await HttpService.Get<UpdateProductDto>("products/" + Id);
+        var response = await HttpMessenger.Get<UpdateProductDto>("products/" + Id);
 
         _product = response.Data;
         if (_product != null) _product.Price /= 100;
@@ -56,7 +56,7 @@
 
     private async Task OnSubmit()
     {
-        if (HttpService == null)
+        if (HttpMessenger == null)
             return;
 
         if (_product != null) _product.Price *= 100;
@@ -65,11 +65,11 @@
 
         if (_type == "put")
         {
-            response = await HttpService.Put("products/put/" + Id, _product);
+            response = await HttpMessenger.Put("products/put/" + Id, _product);
         }
         else
         {
-            response = await HttpService.Patch("products/patch/" + Id, _product);
+            response = await HttpMessenger.Patch("products/patch/" + Id, _product);
         }
 
         if (response.Success)

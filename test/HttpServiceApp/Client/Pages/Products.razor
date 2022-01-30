@@ -1,5 +1,5 @@
 ﻿@page "/products"
-@using HttpService.Service
+@using HttpMessenger.Service
 
 <PageTitle>Products</PageTitle>
 
@@ -17,16 +17,16 @@
 @code {
 
     [Inject]
-    private IHttpService? HttpService { get; set; }
+    private IHttpMessenger? HttpMessenger { get; set; }
 
     private IList<ProductDto> _products = new List<ProductDto>();
 
     protected override async Task OnInitializedAsync()
     {
-        if (HttpService == null)
+        if (HttpMessenger == null)
             return;
 
-        var products = await HttpService.Get<IList<ProductDto>>("products");
+        var products = await HttpMessenger.Get<IList<ProductDto>>("products");
         _products = products.Data!;
     }
 

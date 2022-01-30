@@ -3,16 +3,16 @@ using System.Net.Http.Json;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
-using HttpService.Extensions;
-using HttpService.Helpers;
+using HttpMessenger.Helpers;
+using HttpMessenger.Extensions;
 
-namespace HttpService.Service
+namespace HttpMessenger.Service
 {
-    public class HttpService : IHttpService
+    public class HttpMessenger : IHttpMessenger
     {
         private readonly HttpClient _client;
 
-        public HttpService(HttpClient client)
+        public HttpMessenger(HttpClient client)
         {
             _client = client;
         }

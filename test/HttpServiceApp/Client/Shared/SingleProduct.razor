@@ -1,4 +1,4 @@
-﻿@using HttpService.Service
+﻿@using HttpMessenger.Service
 @if (Product != null)
 {
     <table>
@@ -42,16 +42,16 @@
     public ProductDto? Product { get; set; }
     
     [Inject]
-    public IHttpService? HttpService { get; set; }
+    public IHttpMessenger? HttpMessenger { get; set; }
     
     [Inject]
     public NavigationManager? NavigationManager { get; set; }
 
     public async Task DeleteProduct()
     {
-        if (HttpService == null || Product == null || NavigationManager == null) return;
+        if (HttpMessenger == null || Product == null || NavigationManager == null) return;
         
-        var response = await HttpService.Delete("products/" + Product.Id);
+        var response = await HttpMessenger.Delete("products/" + Product.Id);
         
         if (response.Success)
             NavigationManager.NavigateTo("products");

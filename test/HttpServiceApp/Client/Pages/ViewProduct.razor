@@ -1,5 +1,5 @@
 ﻿@page "/products/{id}"
-@using HttpService.Service
+@using HttpMessenger.Service
 
 <PageTitle>Product</PageTitle>
 
@@ -15,7 +15,7 @@
 @code {
 
     [Inject]
-    private IHttpService? HttpService { get; set; }
+    private IHttpMessenger? HttpMessenger { get; set; }
 
     [Parameter]
     public string Id { get; set; } = string.Empty;
@@ -24,10 +24,10 @@
 
     protected override async Task OnParametersSetAsync()
     {
-        if (HttpService == null)
+        if (HttpMessenger == null)
             return;
         
-        var response = await HttpService.Get<ProductDto>("products/" + Id);
+        var response = await HttpMessenger.Get<ProductDto>("products/" + Id);
         
         Console.WriteLine(response.ErrorMessage);
         

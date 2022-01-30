@@ -1,5 +1,5 @@
 ﻿@page "/products/create"
-@using HttpService.Service
+@using HttpMessenger.Service
 
 <PageTitle>Create Product</PageTitle>
 
@@ -21,7 +21,7 @@
 @code {
 
     [Inject]
-    private IHttpService? HttpService { get; set; }
+    private IHttpMessenger? HttpMessenger { get; set; }
     
     [Inject]
     private NavigationManager? NavigationManager { get; set; }
@@ -30,12 +30,12 @@
 
     private async Task OnSubmit()
     {
-        if (HttpService == null)
+        if (HttpMessenger == null)
             return;
 
         _product.Price *= 100;
         
-        var response = await HttpService.Post<CreateProductDto, ProductDto>("/api/products", _product);
+        var response = await HttpMessenger.Post<CreateProductDto, ProductDto>("/api/products", _product);
         
         if (response.Success)
         {

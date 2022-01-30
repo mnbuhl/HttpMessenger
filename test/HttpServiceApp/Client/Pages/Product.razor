@@ -1,5 +1,5 @@
 ﻿@page "/product"
-@using HttpService.Service
+@using HttpMessenger.Service
 
 <PageTitle>Product</PageTitle>
 
@@ -20,7 +20,7 @@
 @code {
 
     [Inject]
-    private IHttpService? HttpService { get; set; }
+    private IHttpMessenger? HttpMessenger { get; set; }
 
     private string _id = string.Empty;
 
@@ -28,10 +28,10 @@
 
     private async Task GetProduct()
     {
-        if (HttpService == null)
+        if (HttpMessenger == null)
             return;
         
-        var response = await HttpService.Get<ProductDto>("products/" + _id);
+        var response = await HttpMessenger.Get<ProductDto>("products/" + _id);
         
         if (response.Data == null)
             return;

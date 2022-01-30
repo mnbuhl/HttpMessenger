@@ -12,7 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\..\src\HttpService\HttpService.csproj" />
+    <ProjectReference Include="..\..\..\src\HttpMessenger\HttpMessenger.csproj" />
     <ProjectReference Include="..\Shared\HttpServiceApp.Shared.csproj" />
   </ItemGroup>
 

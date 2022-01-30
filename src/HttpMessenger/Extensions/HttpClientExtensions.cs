@@ -5,7 +5,7 @@ using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace HttpService.Extensions
+namespace HttpMessenger.Extensions
 {
     public static class HttpClientExtensions
     {

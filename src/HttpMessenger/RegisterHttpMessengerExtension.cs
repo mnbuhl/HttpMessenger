@@ -1,18 +1,18 @@
-﻿using HttpService.Service;
+﻿using HttpMessenger.Service;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace HttpService
+namespace HttpMessenger
 {
-    public static class RegisterHttpServiceExtension
+    public static class RegisterHttpMessengerExtension
     {
         /// <summary>
-        /// Registers the HttpService to the services container.
+        /// Registers the HttpMessenger to the services container.
         /// </summary>
         /// <param name="services">The <see cref="IServiceCollection"/> to add the services to.</param>
         /// <returns>The <see cref="IServiceCollection"/> so that additional calls can be chained.</returns>
-        public static IServiceCollection AddHttpService(this IServiceCollection services)
+        public static IServiceCollection AddHttpMessenger(this IServiceCollection services)
         {
-            services.AddScoped<IHttpService, Service.HttpService>();
+            services.AddScoped<IHttpMessenger, Service.HttpMessenger>();
             return services;
         }
     }
