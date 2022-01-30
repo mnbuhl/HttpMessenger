@@ -4,7 +4,17 @@ HttpMessenger is a service that provides a simple generic wrapper around the Htt
 
 ## Usage guide
 ### Install the package
-TODO
+Package Manager Console:
+```bash
+Install-Package HttpMessenger
+```
+
+dotnet CLI:
+```bash
+dotnet add package HttpMessenger
+```
+
+Or simply use the NuGet Gallery.
 
 ### Add the service to your app
 Configure your HttpClient in the dependency injection container like you normally would.
