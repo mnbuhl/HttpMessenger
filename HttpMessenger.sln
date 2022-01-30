@@ -1,0 +1,57 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31912.275
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HttpMessenger", "src\HttpMessenger\HttpMessenger.csproj", "{9FD25C06-DAC6-4CB9-BF6C-FDEB3D3461AB}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{C581D648-6436-4F3C-BFBE-B38375CDF4F2}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SolutionItems", "SolutionItems", "{BEF8BE16-6A3F-4D8E-87BD-1326E54FE584}"
+	ProjectSection(SolutionItems) = preProject
+		.gitignore = .gitignore
+		LICENSE = LICENSE
+		README.md = README.md
+	EndProjectSection
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HttpMessengerApp.Server", "test\HttpMessengerApp\Server\HttpMessengerApp.Server.csproj", "{6EF0E3EC-3675-4CF8-B3F8-FAB2A11E1215}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HttpMessengerApp.Client", "test\HttpMessengerApp\Client\HttpMessengerApp.Client.csproj", "{8D1492D8-BC11-481E-AC30-B05738547CD8}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HttpMessengerApp.Shared", "test\HttpMessengerApp\Shared\HttpMessengerApp.Shared.csproj", "{CA133891-D699-4D3B-BE74-B857EF81B2F3}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{9FD25C06-DAC6-4CB9-BF6C-FDEB3D3461AB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9FD25C06-DAC6-4CB9-BF6C-FDEB3D3461AB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9FD25C06-DAC6-4CB9-BF6C-FDEB3D3461AB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9FD25C06-DAC6-4CB9-BF6C-FDEB3D3461AB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6EF0E3EC-3675-4CF8-B3F8-FAB2A11E1215}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6EF0E3EC-3675-4CF8-B3F8-FAB2A11E1215}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6EF0E3EC-3675-4CF8-B3F8-FAB2A11E1215}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6EF0E3EC-3675-4CF8-B3F8-FAB2A11E1215}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8D1492D8-BC11-481E-AC30-B05738547CD8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8D1492D8-BC11-481E-AC30-B05738547CD8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8D1492D8-BC11-481E-AC30-B05738547CD8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8D1492D8-BC11-481E-AC30-B05738547CD8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CA133891-D699-4D3B-BE74-B857EF81B2F3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CA133891-D699-4D3B-BE74-B857EF81B2F3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CA133891-D699-4D3B-BE74-B857EF81B2F3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CA133891-D699-4D3B-BE74-B857EF81B2F3}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{6EF0E3EC-3675-4CF8-B3F8-FAB2A11E1215} = {C581D648-6436-4F3C-BFBE-B38375CDF4F2}
+		{8D1492D8-BC11-481E-AC30-B05738547CD8} = {C581D648-6436-4F3C-BFBE-B38375CDF4F2}
+		{CA133891-D699-4D3B-BE74-B857EF81B2F3} = {C581D648-6436-4F3C-BFBE-B38375CDF4F2}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {D9F27D8C-126A-401B-9F60-845BE936AE1C}
+	EndGlobalSection
+EndGlobal
