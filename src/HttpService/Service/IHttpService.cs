@@ -9,5 +9,5 @@ public interface IHttpService
     Task<ResponseWrapper> Post<T>(string url, T data);
     Task<ResponseWrapper> Put<T>(string url, T data);
     Task<ResponseWrapper> Patch<T>(string url, T data);
-    Task<ResponseWrapper> Delete<T>(string url);
+    Task<ResponseWrapper> Delete(string url);
 }

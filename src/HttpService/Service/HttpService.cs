@@ -20,33 +20,42 @@ public class HttpService : IHttpService
         var response = await _client.GetAsync(url);
 
         if (!response.IsSuccessStatusCode)
-            return new ResponseWrapper<T?>(false, default, response);
+        {
+            string errorMessage = await response.Content.ReadAsStringAsync();
+            return new ResponseWrapper<T?>(false, default, response.StatusCode, errorMessage);
+        }
 
         var data = await response.Content.ReadFromJsonAsync<T>(Options);
 
-        return new ResponseWrapper<T?>(true, data, response);
+        return new ResponseWrapper<T?>(true, data, response.StatusCode);
     }
 
     public async Task<ResponseWrapper<TResponse?>> Post<T, TResponse>(string url, T data)
     {
         var response = await _client.PostAsJsonAsync(url, data, Options);
-        
+
         if (!response.IsSuccessStatusCode)
-            return new ResponseWrapper<TResponse?>(false, default, response);
-        
+        {
+            string errorMessage = await response.Content.ReadAsStringAsync();
+            return new ResponseWrapper<TResponse?>(false, default, response.StatusCode, errorMessage);
+        }
+
         var dataResponse = await response.Content.ReadFromJsonAsync<TResponse>(Options);
         
-        return new ResponseWrapper<TResponse?>(true, dataResponse, response);
+        return new ResponseWrapper<TResponse?>(true, dataResponse, response.StatusCode);
     }
 
     public async Task<ResponseWrapper> Post<T>(string url, T data)
     {
         var response = await _client.PostAsJsonAsync(url, data, Options);
-        
-        if (!response.IsSuccessStatusCode)
-            return new ResponseWrapper(false, response);
 
-        return new ResponseWrapper(true, response);
+        if (!response.IsSuccessStatusCode)
+        {
+            string errorMessage = await response.Content.ReadAsStringAsync();
+            return new ResponseWrapper(false, response.StatusCode, errorMessage);
+        }
+
+        return new ResponseWrapper(true, response.StatusCode);
     }
 
     public async Task<ResponseWrapper> Put<T>(string url, T data)
@@ -54,9 +63,12 @@ public class HttpService : IHttpService
         var response = await _client.PutAsJsonAsync(url, data, Options);
         
         if (!response.IsSuccessStatusCode)
-            return new ResponseWrapper(false, response);
+        {
+            string errorMessage = await response.Content.ReadAsStringAsync();
+            return new ResponseWrapper(false, response.StatusCode, errorMessage);
+        }
 
-        return new ResponseWrapper(true, response);
+        return new ResponseWrapper(true, response.StatusCode);
     }
 
     public async Task<ResponseWrapper> Patch<T>(string url, T data)
@@ -64,19 +76,25 @@ public class HttpService : IHttpService
         var response = await _client.PatchAsJsonAsync(url, data, Options);
         
         if (!response.IsSuccessStatusCode)
-            return new ResponseWrapper(false, response);
+        {
+            string errorMessage = await response.Content.ReadAsStringAsync();
+            return new ResponseWrapper(false, response.StatusCode, errorMessage);
+        }
 
-        return new ResponseWrapper(true, response);
+        return new ResponseWrapper(true, response.StatusCode);
     }
 
-    public async Task<ResponseWrapper> Delete<T>(string url)
+    public async Task<ResponseWrapper> Delete(string url)
     {
         var response = await _client.DeleteAsync(url);
         
         if (!response.IsSuccessStatusCode)
-            return new ResponseWrapper(false, response);
+        {
+            string errorMessage = await response.Content.ReadAsStringAsync();
+            return new ResponseWrapper(false, response.StatusCode, errorMessage);
+        }
         
-        return new ResponseWrapper(true, response);
+        return new ResponseWrapper(true, response.StatusCode);
     }
 
 

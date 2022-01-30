@@ -29,6 +29,8 @@
         
         var response = await HttpService.Get<ProductDto>("products/" + Id);
         
+        Console.WriteLine(response.ErrorMessage);
+        
         if (response.Data == null)
             return;
 

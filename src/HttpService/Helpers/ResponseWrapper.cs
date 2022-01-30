@@ -1,4 +1,9 @@
-﻿namespace HttpService.Helpers;
+﻿using System.Net;
 
-public record ResponseWrapper<T>(bool Success, T Data, HttpResponseMessage ResponseMessage);
-public record ResponseWrapper(bool Success, HttpResponseMessage ResponseMessage);
+namespace HttpService.Helpers;
+
+public record ResponseWrapper<T>(bool Success, T Data, HttpStatusCode StatusCode, string? ErrorMessage = null)
+{
+    
+};
+public record ResponseWrapper(bool Success, HttpStatusCode StatusCode, string? ErrorMessage = null);
