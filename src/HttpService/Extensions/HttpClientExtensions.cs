@@ -1,21 +1,24 @@
-﻿using System.Net.Http.Json;
+﻿using System;
+using System.Net.Http;
+using System.Net.Http.Json;
 using System.Text.Json;
-using System.Text.Json.Serialization;
-using System.Text.Json.Serialization.Metadata;
+using System.Threading;
+using System.Threading.Tasks;
 
-namespace HttpService.Extensions;
-
-public static class HttpClientExtensions
+namespace HttpService.Extensions
 {
-    public static Task<HttpResponseMessage> PatchAsJsonAsync<TValue>(this HttpClient client, string? requestUri,
-        TValue value, JsonSerializerOptions? options = null, CancellationToken cancellationToken = default)
+    public static class HttpClientExtensions
     {
-        if (client == null)
+        public static Task<HttpResponseMessage> PatchAsJsonAsync<TValue>(this HttpClient client, string requestUri,
+            TValue value, JsonSerializerOptions options = null, CancellationToken cancellationToken = default)
         {
-            throw new ArgumentNullException(nameof(client));
-        }
+            if (client == null)
+            {
+                throw new ArgumentNullException(nameof(client));
+            }
 
-        JsonContent content = JsonContent.Create(value, mediaType: null, options);
-        return client.PatchAsync(requestUri, content, cancellationToken);
+            JsonContent content = JsonContent.Create(value, mediaType: null, options);
+            return client.PatchAsync(requestUri, content, cancellationToken);
+        }
     }
 }

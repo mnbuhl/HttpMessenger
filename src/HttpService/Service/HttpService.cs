@@ -1,108 +1,110 @@
-﻿using System.Net.Http.Json;
+﻿using System.Net.Http;
+using System.Net.Http.Json;
 using System.Text.Json;
 using System.Text.Json.Serialization;
+using System.Threading.Tasks;
 using HttpService.Extensions;
 using HttpService.Helpers;
 
-namespace HttpService.Service;
-
-public class HttpService : IHttpService
+namespace HttpService.Service
 {
-    private readonly HttpClient _client;
-
-    public HttpService(HttpClient client)
+    public class HttpService : IHttpService
     {
-        _client = client;
-    }
+        private readonly HttpClient _client;
 
-    public async Task<ResponseWrapper<T?>> Get<T>(string url)
-    {
-        var response = await _client.GetAsync(url);
-
-        if (!response.IsSuccessStatusCode)
+        public HttpService(HttpClient client)
         {
-            string errorMessage = await response.Content.ReadAsStringAsync();
-            return new ResponseWrapper<T?>(false, default, (int)response.StatusCode, errorMessage);
+            _client = client;
         }
 
-        var data = await response.Content.ReadFromJsonAsync<T>(Options);
-
-        return new ResponseWrapper<T?>(true, data, (int)response.StatusCode);
-    }
-
-    public async Task<ResponseWrapper<TResponse?>> Post<T, TResponse>(string url, T data)
-    {
-        var response = await _client.PostAsJsonAsync(url, data, Options);
-
-        if (!response.IsSuccessStatusCode)
+        public async Task<ResponseWrapper<T>> Get<T>(string url)
         {
-            string errorMessage = await response.Content.ReadAsStringAsync();
-            return new ResponseWrapper<TResponse?>(false, default, (int)response.StatusCode, errorMessage);
+            var response = await _client.GetAsync(url);
+
+            if (!response.IsSuccessStatusCode)
+            {
+                string errorMessage = await response.Content.ReadAsStringAsync();
+                return new ResponseWrapper<T>(false, default, (int)response.StatusCode, errorMessage);
+            }
+
+            var data = await response.Content.ReadFromJsonAsync<T>(Options);
+
+            return new ResponseWrapper<T>(true, data, (int)response.StatusCode);
         }
 
-        var dataResponse = await response.Content.ReadFromJsonAsync<TResponse>(Options);
-        
-        return new ResponseWrapper<TResponse?>(true, dataResponse, (int)response.StatusCode);
-    }
-
-    public async Task<ResponseWrapper> Post<T>(string url, T data)
-    {
-        var response = await _client.PostAsJsonAsync(url, data, Options);
-
-        if (!response.IsSuccessStatusCode)
+        public async Task<ResponseWrapper<TResponse>> Post<T, TResponse>(string url, T data)
         {
-            string errorMessage = await response.Content.ReadAsStringAsync();
-            return new ResponseWrapper(false, (int)response.StatusCode, errorMessage);
+            var response = await _client.PostAsJsonAsync(url, data, Options);
+
+            if (!response.IsSuccessStatusCode)
+            {
+                string errorMessage = await response.Content.ReadAsStringAsync();
+                return new ResponseWrapper<TResponse>(false, default, (int)response.StatusCode, errorMessage);
+            }
+
+            var dataResponse = await response.Content.ReadFromJsonAsync<TResponse>(Options);
+
+            return new ResponseWrapper<TResponse>(true, dataResponse, (int)response.StatusCode);
         }
 
-        return new ResponseWrapper(true, (int)response.StatusCode);
-    }
-
-    public async Task<ResponseWrapper> Put<T>(string url, T data)
-    {
-        var response = await _client.PutAsJsonAsync(url, data, Options);
-        
-        if (!response.IsSuccessStatusCode)
+        public async Task<ResponseWrapper> Post<T>(string url, T data)
         {
-            string errorMessage = await response.Content.ReadAsStringAsync();
-            return new ResponseWrapper(false, (int)response.StatusCode, errorMessage);
+            var response = await _client.PostAsJsonAsync(url, data, Options);
+
+            if (!response.IsSuccessStatusCode)
+            {
+                string errorMessage = await response.Content.ReadAsStringAsync();
+                return new ResponseWrapper(false, (int)response.StatusCode, errorMessage);
+            }
+
+            return new ResponseWrapper(true, (int)response.StatusCode);
         }
 
-        return new ResponseWrapper(true, (int)response.StatusCode);
-    }
-
-    public async Task<ResponseWrapper> Patch<T>(string url, T data)
-    {
-        var response = await _client.PatchAsJsonAsync(url, data, Options);
-        
-        if (!response.IsSuccessStatusCode)
+        public async Task<ResponseWrapper> Put<T>(string url, T data)
         {
-            string errorMessage = await response.Content.ReadAsStringAsync();
-            return new ResponseWrapper(false, (int)response.StatusCode, errorMessage);
+            var response = await _client.PutAsJsonAsync(url, data, Options);
+
+            if (!response.IsSuccessStatusCode)
+            {
+                string errorMessage = await response.Content.ReadAsStringAsync();
+                return new ResponseWrapper(false, (int)response.StatusCode, errorMessage);
+            }
+
+            return new ResponseWrapper(true, (int)response.StatusCode);
         }
 
-        return new ResponseWrapper(true, (int)response.StatusCode);
-    }
-
-    public async Task<ResponseWrapper> Delete(string url)
-    {
-        var response = await _client.DeleteAsync(url);
-        
-        if (!response.IsSuccessStatusCode)
+        public async Task<ResponseWrapper> Patch<T>(string url, T data)
         {
-            string errorMessage = await response.Content.ReadAsStringAsync();
-            return new ResponseWrapper(false, (int)response.StatusCode, errorMessage);
+            var response = await _client.PatchAsJsonAsync(url, data, Options);
+
+            if (!response.IsSuccessStatusCode)
+            {
+                string errorMessage = await response.Content.ReadAsStringAsync();
+                return new ResponseWrapper(false, (int)response.StatusCode, errorMessage);
+            }
+
+            return new ResponseWrapper(true, (int)response.StatusCode);
         }
-        
-        return new ResponseWrapper(true, (int)response.StatusCode);
+
+        public async Task<ResponseWrapper> Delete(string url)
+        {
+            var response = await _client.DeleteAsync(url);
+
+            if (!response.IsSuccessStatusCode)
+            {
+                string errorMessage = await response.Content.ReadAsStringAsync();
+                return new ResponseWrapper(false, (int)response.StatusCode, errorMessage);
+            }
+
+            return new ResponseWrapper(true, (int)response.StatusCode);
+        }
+
+
+        private static JsonSerializerOptions Options => new JsonSerializerOptions
+        {
+            PropertyNameCaseInsensitive = true,
+            ReferenceHandler = ReferenceHandler.IgnoreCycles,
+            PropertyNamingPolicy = JsonNamingPolicy.CamelCase
+        };
     }
-
-
-    private static JsonSerializerOptions Options => new JsonSerializerOptions
-    {
-        PropertyNameCaseInsensitive = true,
-        ReferenceHandler = ReferenceHandler.IgnoreCycles,
-        PropertyNamingPolicy = JsonNamingPolicy.CamelCase
-    };
-    
 }

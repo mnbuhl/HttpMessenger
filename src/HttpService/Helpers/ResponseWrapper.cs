@@ -1,21 +1,48 @@
 ﻿using System.Net;
 
-namespace HttpService.Helpers;
+namespace HttpService.Helpers
+{
+    /// <summary>
+    /// A generic easy to use helper class for wrapping the content from a HTTP response.
+    /// </summary>
+    /// <typeparam name="T">The generic data model returned from the response</typeparam>
+    public class ResponseWrapper<T>
+    {
+        public bool Success { get; } 
+        public T Data { get; } 
+        public int StatusCode { get; }
+        public string ErrorMessage { get; }
 
-/// <summary>
-/// A generic easy to use helper class for wrapping the content from a HTTP response.
-/// </summary>
-/// <param name="Success">The success status of the response</param>
-/// <param name="Data">The data returned from the response</param>
-/// <param name="StatusCode">The status code of the response</param>
-/// <param name="ErrorMessage">Optional error message - used when the request fails</param>
-/// <typeparam name="T">The generic data model returned from the response</typeparam>
-public record ResponseWrapper<T>(bool Success, T Data, int StatusCode, string? ErrorMessage = null);
+        /// <param name="success">The success status of the response</param>
+        /// <param name="data">The data returned from the response</param>
+        /// <param name="statusCode">The status code of the response</param>
+        /// <param name="errorMessage">Optional error message - used when the request fails</param>
+        public ResponseWrapper(bool success, T data, int statusCode, string errorMessage = null)
+        {
+            Success = success;
+            Data = data;
+            StatusCode = statusCode;
+            ErrorMessage = errorMessage;
+        }
+    };
+    
+    /// <summary>
+    /// A generic easy to use helper class for wrapping the content from a HTTP response.
+    /// </summary>
+    public class ResponseWrapper
+    {
+        public bool Success { get; }
+        public int StatusCode { get; }
+        public string ErrorMessage { get; }
 
-/// <summary>
-/// An easy to use helper class for wrapping the content from a HTTP response.
-/// </summary>
-/// <param name="Success">The success status of the response</param>
-/// <param name="StatusCode">The status code of the response</param>
-/// <param name="ErrorMessage">Optional error message - used when the request fails</param>
-public record ResponseWrapper(bool Success, int StatusCode, string? ErrorMessage = null);
+        /// <param name="success">The success status of the response</param>
+        /// <param name="statusCode">The status code of the response</param>
+        /// <param name="errorMessage">Optional error message - used when the request fails</param>
+        public ResponseWrapper(bool success, int statusCode, string errorMessage = null)
+        {
+            Success = success;
+            StatusCode = statusCode;
+            ErrorMessage = errorMessage;
+        }
+    };
+}
