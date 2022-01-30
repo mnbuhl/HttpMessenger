@@ -1,0 +1,37 @@
+﻿@page "/products/{id}"
+@using HttpService.Service
+
+<PageTitle>Product</PageTitle>
+
+<h1>Product</h1>
+
+@if (_product != null)
+{
+    <SingleProduct Product="_product" />
+}
+
+
+
+@code {
+
+    [Inject]
+    private IHttpService? HttpService { get; set; }
+
+    [Parameter]
+    public string Id { get; set; } = string.Empty;
+
+    private ProductDto? _product;
+
+    protected override async Task OnParametersSetAsync()
+    {
+        if (HttpService == null)
+            return;
+        
+        var response = await HttpService.Get<ProductDto>("products/" + Id);
+        
+        if (response.Data == null)
+            return;
+
+        _product = response.Data;
+    }
+}

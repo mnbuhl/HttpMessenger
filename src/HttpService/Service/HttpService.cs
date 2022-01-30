@@ -1,6 +1,7 @@
 ﻿using System.Net.Http.Json;
 using System.Text.Json;
 using System.Text.Json.Serialization;
+using HttpService.Extensions;
 using HttpService.Helpers;
 
 namespace HttpService.Service;
@@ -48,11 +49,32 @@ public class HttpService : IHttpService
         return new ResponseWrapper<object>(true, true, response);
     }
 
+    public async Task<ResponseWrapper<object>> Put<T>(string url, T data)
+    {
+        var response = await _client.PutAsJsonAsync(url, data);
+        
+        if (!response.IsSuccessStatusCode)
+            return new ResponseWrapper<object>(false, false, response);
+
+        return new ResponseWrapper<object>(true, true, response);
+    }
+
+    public async Task<ResponseWrapper<object>> Patch<T>(string url, T data)
+    {
+        var response = await _client.PatchAsJsonAsync(url, data, Options);
+        
+        if (!response.IsSuccessStatusCode)
+            return new ResponseWrapper<object>(false, false, response);
+
+        return new ResponseWrapper<object>(true, true, response);
+    }
+
     private static JsonSerializerOptions Options => new JsonSerializerOptions
     {
         PropertyNameCaseInsensitive = true,
         DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull,
         ReferenceHandler = ReferenceHandler.IgnoreCycles,
+        PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
     };
     
 }

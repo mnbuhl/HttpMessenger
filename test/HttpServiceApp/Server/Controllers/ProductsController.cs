@@ -1,4 +1,5 @@
-﻿using HttpServiceApp.Server.Data;
+﻿using System.Reflection;
+using HttpServiceApp.Server.Data;
 using HttpServiceApp.Server.Extensions;
 using HttpServiceApp.Shared.Dtos;
 using Microsoft.AspNetCore.Mvc;
@@ -48,5 +49,52 @@ public class ProductsController : ControllerBase
             return BadRequest("Could not create product");
         
         return CreatedAtAction("Show", new { id = product.Id }, product.ToDto());
+    }
+
+    [HttpPut("put/{id}")]
+    public async Task<IActionResult> Update(Guid id, UpdateProductDto productDto)
+    {
+        var product = await _context.Products.FirstOrDefaultAsync(x => x.Id == id);
+        
+        if (product == null)
+            return NotFound();
+        
+        product.Name = productDto.Name;
+        product.Description = productDto.Description;
+        product.Price = productDto.Price;
+        product.UpdatedAt = DateTime.Now;
+        
+        bool success = await _context.SaveChangesAsync() > 0;
+        
+        if (!success)
+            return BadRequest("Could not update product");
+
+        return NoContent();
+    }
+    
+    [HttpPatch("patch/{id}")]
+    public async Task<IActionResult> Edit(Guid id, UpdateProductDto productDto)
+    {
+        var product = await _context.Products.FirstOrDefaultAsync(x => x.Id == id);
+        
+        if (product == null)
+            return NotFound();
+        
+        foreach (PropertyInfo prop in productDto.GetType().GetProperties())
+        {
+            if (prop.GetValue(productDto) != null)
+            {
+                product.GetType().GetProperty(prop.Name)?.SetValue(product, prop.GetValue(productDto));               
+            }
+        }
+        
+        product.UpdatedAt = DateTime.Now;
+
+        bool success = await _context.SaveChangesAsync() > 0;
+        
+        if (!success)
+            return BadRequest("Could not update product");
+
+        return NoContent();
     }
 }

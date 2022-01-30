@@ -1,4 +1,7 @@
-﻿namespace HttpServiceApp.Shared.Dtos;
+﻿using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
+
+namespace HttpServiceApp.Shared.Dtos;
 
 public record ProductDto(
     Guid Id,

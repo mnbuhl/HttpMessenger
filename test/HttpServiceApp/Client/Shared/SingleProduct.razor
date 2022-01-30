@@ -1,6 +1,6 @@
 ﻿@if (Product != null)
 {
-    <table class="product-table">
+    <table>
         <tr>
             <td>Id:</td>
             <td>@Product.Id</td>
@@ -23,9 +23,13 @@
         </tr>
         <tr>
             <td>Updated At:</td>
-            <td>@Product.UpdatedAt.ToShortDateString() @Product.CreatedAt.ToShortTimeString()</td>
+            <td>@Product.UpdatedAt.ToShortDateString() @Product.UpdatedAt.ToShortTimeString()</td>
         </tr>
     </table>
+    <div class="product-table">
+        <NavLink href="@("products/" + @Product.Id)">View</NavLink>
+        <NavLink href="@("products/edit/" + @Product.Id)">Edit</NavLink>
+    </div>
 }
 
 @code {
