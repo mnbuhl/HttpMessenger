@@ -58,12 +58,9 @@ public class ProductsController : ControllerBase
         
         if (product == null)
             return NotFound();
-        
-        product.Name = productDto.Name;
-        product.Description = productDto.Description;
-        product.Price = productDto.Price;
-        product.UpdatedAt = DateTime.Now;
-        
+
+        product.MapFromUpdateDto(productDto);
+
         bool success = await _context.SaveChangesAsync() > 0;
         
         if (!success)

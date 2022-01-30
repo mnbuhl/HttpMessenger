@@ -39,4 +39,13 @@ public static class ProductExtensions
             Price = product.Price,
         };
     }
+
+    public static Product MapFromUpdateDto(this Product product, UpdateProductDto updateProductDto)
+    {
+        product.Name = updateProductDto.Name;
+        product.Description = updateProductDto.Description;
+        product.Price = updateProductDto.Price;
+        product.UpdatedAt = DateTime.UtcNow;
+        return product;
+    }
 }

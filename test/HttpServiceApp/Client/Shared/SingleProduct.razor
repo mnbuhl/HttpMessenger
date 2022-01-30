@@ -1,4 +1,5 @@
-﻿@if (Product != null)
+﻿@using HttpService.Service
+@if (Product != null)
 {
     <table>
         <tr>
@@ -29,6 +30,7 @@
     <div class="product-table">
         <NavLink href="@("products/" + @Product.Id)">View</NavLink>
         <NavLink href="@("products/edit/" + @Product.Id)">Edit</NavLink>
+        <EditForm Model="Product" ></EditForm>
     </div>
 }
 
@@ -36,5 +38,15 @@
 
     [Parameter]
     public ProductDto? Product { get; set; }
+    
+    [Inject]
+    public IHttpService? HttpService { get; set; }
+
+    public async Task DeleteProduct()
+    {
+        if (HttpService == null) return;
+        
+        
+    }
 
 }

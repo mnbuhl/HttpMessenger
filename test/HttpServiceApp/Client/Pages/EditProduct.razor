@@ -49,7 +49,7 @@
         var response = await HttpService.Get<UpdateProductDto>("products/" + Id);
 
         _product = response.Data;
-        _product.Price /= 100;
+        if (_product != null) _product.Price /= 100;
 
         await base.OnParametersSetAsync();
     }
@@ -59,9 +59,9 @@
         if (HttpService == null)
             return;
 
-        _product.Price *= 100;
+        if (_product != null) _product.Price *= 100;
         
-        ResponseWrapper<object>? response = null;
+        ResponseWrapper? response = null;
 
         if (_type == "put")
         {

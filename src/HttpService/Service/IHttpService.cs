@@ -6,7 +6,8 @@ public interface IHttpService
 {
     Task<ResponseWrapper<T?>> Get<T>(string url);
     Task<ResponseWrapper<TResponse?>> Post<T, TResponse>(string url, T data);
-    Task<ResponseWrapper<object>> Post<T>(string url, T data);
-    Task<ResponseWrapper<object>> Put<T>(string url, T data);
-    Task<ResponseWrapper<object>> Patch<T>(string url, T data);
+    Task<ResponseWrapper> Post<T>(string url, T data);
+    Task<ResponseWrapper> Put<T>(string url, T data);
+    Task<ResponseWrapper> Patch<T>(string url, T data);
+    Task<ResponseWrapper> Delete<T>(string url);
 }

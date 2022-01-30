@@ -29,7 +29,7 @@ public class HttpService : IHttpService
 
     public async Task<ResponseWrapper<TResponse?>> Post<T, TResponse>(string url, T data)
     {
-        var response = await _client.PostAsJsonAsync(url, data);
+        var response = await _client.PostAsJsonAsync(url, data, Options);
         
         if (!response.IsSuccessStatusCode)
             return new ResponseWrapper<TResponse?>(false, default, response);
@@ -39,40 +39,50 @@ public class HttpService : IHttpService
         return new ResponseWrapper<TResponse?>(true, dataResponse, response);
     }
 
-    public async Task<ResponseWrapper<object>> Post<T>(string url, T data)
+    public async Task<ResponseWrapper> Post<T>(string url, T data)
     {
-        var response = await _client.PostAsJsonAsync(url, data);
+        var response = await _client.PostAsJsonAsync(url, data, Options);
         
         if (!response.IsSuccessStatusCode)
-            return new ResponseWrapper<object>(false, false, response);
+            return new ResponseWrapper(false, response);
 
-        return new ResponseWrapper<object>(true, true, response);
+        return new ResponseWrapper(true, response);
     }
 
-    public async Task<ResponseWrapper<object>> Put<T>(string url, T data)
+    public async Task<ResponseWrapper> Put<T>(string url, T data)
     {
-        var response = await _client.PutAsJsonAsync(url, data);
+        var response = await _client.PutAsJsonAsync(url, data, Options);
         
         if (!response.IsSuccessStatusCode)
-            return new ResponseWrapper<object>(false, false, response);
+            return new ResponseWrapper(false, response);
 
-        return new ResponseWrapper<object>(true, true, response);
+        return new ResponseWrapper(true, response);
     }
 
-    public async Task<ResponseWrapper<object>> Patch<T>(string url, T data)
+    public async Task<ResponseWrapper> Patch<T>(string url, T data)
     {
         var response = await _client.PatchAsJsonAsync(url, data, Options);
         
         if (!response.IsSuccessStatusCode)
-            return new ResponseWrapper<object>(false, false, response);
+            return new ResponseWrapper(false, response);
 
-        return new ResponseWrapper<object>(true, true, response);
+        return new ResponseWrapper(true, response);
     }
+
+    public async Task<ResponseWrapper> Delete<T>(string url)
+    {
+        var response = await _client.DeleteAsync(url);
+        
+        if (!response.IsSuccessStatusCode)
+            return new ResponseWrapper(false, response);
+        
+        return new ResponseWrapper(true, response);
+    }
+
 
     private static JsonSerializerOptions Options => new JsonSerializerOptions
     {
         PropertyNameCaseInsensitive = true,
-        DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull,
         ReferenceHandler = ReferenceHandler.IgnoreCycles,
         PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
     };
