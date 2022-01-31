@@ -22,10 +22,7 @@ namespace HttpMessenger.Service
             var response = await _client.GetAsync(url);
 
             if (!response.IsSuccessStatusCode)
-            {
-                string errorMessage = await response.Content.ReadAsStringAsync();
-                return new ResponseWrapper<T>(false, default, (int)response.StatusCode, errorMessage);
-            }
+                return await GetErrorResponse<T>(response);
 
             var data = await response.Content.ReadFromJsonAsync<T>(Options);
 
@@ -37,10 +34,7 @@ namespace HttpMessenger.Service
             var response = await _client.PostAsJsonAsync(url, data, Options);
 
             if (!response.IsSuccessStatusCode)
-            {
-                string errorMessage = await response.Content.ReadAsStringAsync();
-                return new ResponseWrapper<TResponse>(false, default, (int)response.StatusCode, errorMessage);
-            }
+                return await GetErrorResponse<TResponse>(response);
 
             var dataResponse = await response.Content.ReadFromJsonAsync<TResponse>(Options);
 
@@ -52,10 +46,7 @@ namespace HttpMessenger.Service
             var response = await _client.PostAsJsonAsync(url, data, Options);
 
             if (!response.IsSuccessStatusCode)
-            {
-                string errorMessage = await response.Content.ReadAsStringAsync();
-                return new ResponseWrapper(false, (int)response.StatusCode, errorMessage);
-            }
+                return await GetErrorResponse(response);
 
             return new ResponseWrapper(true, (int)response.StatusCode);
         }
@@ -65,10 +56,7 @@ namespace HttpMessenger.Service
             var response = await _client.PutAsJsonAsync(url, data, Options);
 
             if (!response.IsSuccessStatusCode)
-            {
-                string errorMessage = await response.Content.ReadAsStringAsync();
-                return new ResponseWrapper(false, (int)response.StatusCode, errorMessage);
-            }
+                return await GetErrorResponse(response);
 
             return new ResponseWrapper(true, (int)response.StatusCode);
         }
@@ -78,10 +66,7 @@ namespace HttpMessenger.Service
             var response = await _client.PatchAsJsonAsync(url, data, Options);
 
             if (!response.IsSuccessStatusCode)
-            {
-                string errorMessage = await response.Content.ReadAsStringAsync();
-                return new ResponseWrapper(false, (int)response.StatusCode, errorMessage);
-            }
+                return await GetErrorResponse(response);
 
             return new ResponseWrapper(true, (int)response.StatusCode);
         }
@@ -91,12 +76,21 @@ namespace HttpMessenger.Service
             var response = await _client.DeleteAsync(url);
 
             if (!response.IsSuccessStatusCode)
-            {
-                string errorMessage = await response.Content.ReadAsStringAsync();
-                return new ResponseWrapper(false, (int)response.StatusCode, errorMessage);
-            }
+                return await GetErrorResponse(response);
 
             return new ResponseWrapper(true, (int)response.StatusCode);
+        }
+        
+        private static async Task<ResponseWrapper<T>> GetErrorResponse<T>(HttpResponseMessage response)
+        {
+            string errorMessage = await response.Content.ReadAsStringAsync();
+            return new ResponseWrapper<T>(false, default, (int)response.StatusCode, errorMessage);
+        }
+        
+        private static async Task<ResponseWrapper> GetErrorResponse(HttpResponseMessage response)
+        {
+            string errorMessage = await response.Content.ReadAsStringAsync();
+            return new ResponseWrapper(false, (int)response.StatusCode, errorMessage);
         }
 
 
