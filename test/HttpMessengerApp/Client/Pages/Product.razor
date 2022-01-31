@@ -6,13 +6,13 @@
 <h1>Product</h1>
 
 <div style="margin-bottom: 20px">
-    <input @bind="@_id" />
+    <input @bind="@_id"/>
     <button @onclick="GetProduct">Search</button>
 </div>
 
 @if (_product != null)
 {
-    <SingleProduct Product="_product" />
+    <SingleProduct Product="_product"/>
 }
 
 
@@ -30,12 +30,13 @@
     {
         if (HttpMessenger == null)
             return;
-        
-        var response = await HttpMessenger.Get<ProductDto>("products/" + _id);
-        
+
+        var response = await HttpMessenger.Get<ProductDto>("products/" + _id, new { foo = "bar", fee = "bas", magi = "karp" });
+
         if (response.Data == null)
             return;
 
         _product = response.Data;
     }
+
 }

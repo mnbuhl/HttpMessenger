@@ -1,8 +1,12 @@
-﻿using System.Net.Http;
+﻿using System;
+using System.Linq;
+using System.Net.Http;
 using System.Net.Http.Json;
+using System.Reflection;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
+using System.Web;
 using HttpMessenger.Helpers;
 using HttpMessenger.Extensions;
 
@@ -17,9 +21,16 @@ namespace HttpMessenger.Service
             _client = client;
         }
 
-        public async Task<ResponseWrapper<T>> Get<T>(string url)
+        public async Task<ResponseWrapper<T>> Get<T>(string url, object queryParams = null)
         {
-            var response = await _client.GetAsync(url);
+            string query = string.Empty;
+            
+            if (queryParams != null)
+            {
+                query = QueryParameterParser.GetQueryString(queryParams);
+            }
+
+            var response = await _client.GetAsync(url + query);
 
             if (!response.IsSuccessStatusCode)
                 return await GetErrorResponse<T>(response);
@@ -80,7 +91,7 @@ namespace HttpMessenger.Service
 
             return new ResponseWrapper(true, (int)response.StatusCode);
         }
-        
+
         private static async Task<ResponseWrapper<T>> GetErrorResponse<T>(HttpResponseMessage response)
         {
             string errorMessage = await response.Content.ReadAsStringAsync();
@@ -92,8 +103,7 @@ namespace HttpMessenger.Service
             string errorMessage = await response.Content.ReadAsStringAsync();
             return new ResponseWrapper(false, (int)response.StatusCode, errorMessage);
         }
-
-
+        
         private static JsonSerializerOptions Options => new JsonSerializerOptions
         {
             PropertyNameCaseInsensitive = true,

@@ -20,6 +20,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HttpMessengerApp.Client", "
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HttpMessengerApp.Shared", "test\HttpMessengerApp\Shared\HttpMessengerApp.Shared.csproj", "{CA133891-D699-4D3B-BE74-B857EF81B2F3}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HttpMessenger.Test", "test\HttpMessenger.Test\HttpMessenger.Test.csproj", "{72C6AEF5-1B70-4F07-BD84-ED97F0108C76}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -42,6 +44,10 @@ Global
 		{CA133891-D699-4D3B-BE74-B857EF81B2F3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CA133891-D699-4D3B-BE74-B857EF81B2F3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CA133891-D699-4D3B-BE74-B857EF81B2F3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{72C6AEF5-1B70-4F07-BD84-ED97F0108C76}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{72C6AEF5-1B70-4F07-BD84-ED97F0108C76}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{72C6AEF5-1B70-4F07-BD84-ED97F0108C76}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{72C6AEF5-1B70-4F07-BD84-ED97F0108C76}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -50,6 +56,7 @@ Global
 		{6EF0E3EC-3675-4CF8-B3F8-FAB2A11E1215} = {C581D648-6436-4F3C-BFBE-B38375CDF4F2}
 		{8D1492D8-BC11-481E-AC30-B05738547CD8} = {C581D648-6436-4F3C-BFBE-B38375CDF4F2}
 		{CA133891-D699-4D3B-BE74-B857EF81B2F3} = {C581D648-6436-4F3C-BFBE-B38375CDF4F2}
+		{72C6AEF5-1B70-4F07-BD84-ED97F0108C76} = {C581D648-6436-4F3C-BFBE-B38375CDF4F2}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {D9F27D8C-126A-401B-9F60-845BE936AE1C}

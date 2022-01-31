@@ -13,7 +13,7 @@ namespace HttpMessenger.Service
         /// <returns>A <see cref="ResponseWrapper"/> with the data, success status, status code and error message if any</returns>
         /// <example><code>await HttpMessenger.Get&lt;Product&gt;("products/1");</code></example>
         /// <example><code>await HttpMessenger.Get&lt;List&lt;Product&gt;&gt;("products");</code></example>
-        Task<ResponseWrapper<T>> Get<T>(string url);
+        Task<ResponseWrapper<T>> Get<T>(string url, object queryParams = null);
 
         /// <summary>
         /// Creates a POST request to the specified url with the specified data.
