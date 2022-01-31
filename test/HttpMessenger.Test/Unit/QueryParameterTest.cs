@@ -1,4 +1,5 @@
-﻿using HttpMessenger.Helpers;
+﻿using System.Collections.Generic;
+using HttpMessenger.Helpers;
 using Xunit;
 
 namespace HttpMessenger.Test.Unit;
@@ -56,7 +57,7 @@ public class QueryParameterTest
     {
         public string? Currency { get; set; }
         public long Balance { get; set; }
-        public Person Person { get; set; }
+        public Person? Person { get; set; }
     }
     
     [Fact]
@@ -79,6 +80,70 @@ public class QueryParameterTest
         
         // Assert
         Assert.Equal("?currency=DKK&balance=100000&name=John&age=30", result);
+    }
+    
+    [Fact]
+    public void Query_IsCorrectlyParsed_WhenArrayUsed()
+    {
+        int[] arr = { 1, 2, 3 };
+
+        // Arrange
+        var queryParams = new { arr };
+        
+        // Act
+        string result = QueryParameterParser.GetQueryString(queryParams);
+        
+        // Assert
+        Assert.Equal("?arr=1&arr=2&arr=3", result);
+    }
+    
+    // A list of objects should be parsed as a query string
+    [Fact]
+    public void Query_IsIncorrectlyParsed_WhenArrayOfObjectsUsed()
+    {
+        var person1 = new Person { Name = "John", Age = 30 };
+        var person2 = new Person { Name = "Mark", Age = 32 };
+        Person[] arr = { person1, person2 };
+
+        // Arrange
+        var queryParams = new { arr };
+        
+        // Act
+        string result = QueryParameterParser.GetQueryString(queryParams);
+        
+        // Assert
+        Assert.Equal("?arr=name=John&age=30&arr=name=Mark&age=32", result);
+        Assert.NotEqual("?name=John&age=30&name=Mark&age=32", result);
+    }
+    
+    [Fact]
+    public void Query_IsCorrectlyParsed_WhenListOfIntUsed()
+    {
+        var list = new List<int> { 1, 2, 3 };
+
+        // Arrange
+        var queryParams = new { list };
+        
+        // Act
+        string result = QueryParameterParser.GetQueryString(queryParams);
+        
+        // Assert
+        Assert.Equal("?list=1&list=2&list=3", result);
+    }
+    
+    [Fact]
+    public void Query_IsCorrectlyParsed_WhenListOfStringUsed()
+    {
+        var list = new List<string> { "Hello", "World" };
+
+        // Arrange
+        var queryParams = new { list };
+        
+        // Act
+        string result = QueryParameterParser.GetQueryString(queryParams);
+        
+        // Assert
+        Assert.Equal("?list=Hello&list=World", result);
     }
 
     [Fact]

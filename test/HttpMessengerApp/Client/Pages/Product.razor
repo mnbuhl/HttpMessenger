@@ -31,7 +31,7 @@
         if (HttpMessenger == null)
             return;
 
-        var response = await HttpMessenger.Get<ProductDto>("products/" + _id, new { foo = "bar", fee = "bas", magi = "karp" });
+        var response = await HttpMessenger.Get<ProductDto>($"products/{_id}");
 
         if (response.Data == null)
             return;
