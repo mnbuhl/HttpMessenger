@@ -1,6 +1,8 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Linq;
 using System.Web;
+using HttpMessenger.Exceptions;
 
 namespace HttpMessenger.Helpers
 {
@@ -19,7 +21,7 @@ namespace HttpMessenger.Helpers
             string query = string.Empty;
 
             if (IsPrimitiveType(queryParams) || queryParams is string)
-                return queryParams + "&";
+                return HttpUtility.UrlEncode($"{queryParams}") + "&";
             
             foreach (var param in queryParams.GetType().GetProperties())
             {
@@ -30,21 +32,30 @@ namespace HttpMessenger.Helpers
                 {
                     string s => $"{key}={HttpUtility.UrlEncode(s)}",
                     
-                    object obj when IsPrimitiveType(obj) => $"{key}={HttpUtility.UrlEncode(obj.ToString())}",
+                    object obj when IsPrimitiveType(obj) => $"{key}={HttpUtility.UrlEncode($"{obj}")}",
                     
                     // Also captures arrays
                     object list when list is IEnumerable enumerable => enumerable.Cast<object>()
-                        .Aggregate(query, (current, val) => current + $"{key}={ParseQueryStringFromParams(val)}"),
+                        .Aggregate(query, (current, val) 
+                            => current + $"{key}={(ParseQueryStringFromParams(HandleEnumerableOfObjects(val)))}"),
                     
                     object obj when !IsPrimitiveType(obj) => ParseQueryStringFromParams(obj),
                     
-                    _ => $"{key}={HttpUtility.UrlEncode(value.ToString())}"
+                    _ => $"{key}={HttpUtility.UrlEncode($"{value}")}"
                 };
 
                 query += "&";
             }
 
             return query;
+        }
+
+        private static object HandleEnumerableOfObjects(object val)
+        {
+            if (IsPrimitiveType(val) || val is string)
+                return val;
+
+            throw new EnumerableOfObjectsException("Enumerable of objects is not supported.", val.GetType().Name);
         }
 
         // Not a very good way to do this, but it works for now
