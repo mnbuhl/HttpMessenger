@@ -1,6 +1,10 @@
 ﻿using System;
 using System.Collections;
+using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
+using System.Text;
+using System.Text.Json;
 using System.Web;
 using HttpMessenger.Exceptions;
 
@@ -11,17 +15,18 @@ namespace HttpMessenger.Helpers
         public static string GetQueryString(object queryParams)
         {
             string query = "?" + ParseQueryStringFromParams(queryParams);
-
+            
             query = query.TrimEnd('&');
             return query;
         }
 
+        // Sorry to whoever has to read this
         private static string ParseQueryStringFromParams(object queryParams)
         {
             string query = string.Empty;
 
-            if (IsPrimitiveType(queryParams) || queryParams is string)
-                return HttpUtility.UrlEncode($"{queryParams}") + "&";
+            if (IsPrimitiveOrValueType(queryParams) || queryParams is string)
+                return Encode($"{queryParams}");
             
             foreach (var param in queryParams.GetType().GetProperties())
             {
@@ -30,29 +35,41 @@ namespace HttpMessenger.Helpers
 
                 query += value switch
                 {
-                    string s => $"{key}={HttpUtility.UrlEncode(s)}",
+                    string s => $"{key}={Encode(s)}",
                     
-                    object obj when IsPrimitiveType(obj) => $"{key}={HttpUtility.UrlEncode($"{obj}")}",
+                    object obj when IsPrimitiveOrValueType(obj) => $"{key}={Encode(HandleCultureOnBuiltInTypes(obj))}",
                     
                     // Also captures arrays
                     object list when list is IEnumerable enumerable => enumerable.Cast<object>()
                         .Aggregate(query, (current, val) 
-                            => current + $"{key}={(ParseQueryStringFromParams(HandleEnumerableOfObjects(val)))}"),
+                            => current + $"{key}={ParseQueryStringFromParams(HandleEnumerableOfObjects(val))}"),
                     
-                    object obj when !IsPrimitiveType(obj) => ParseQueryStringFromParams(obj),
+                    object obj when !IsPrimitiveOrValueType(obj) => ParseQueryStringFromParams(obj),
                     
-                    _ => $"{key}={HttpUtility.UrlEncode($"{value}")}"
+                    _ => $"{key}={Encode($"{value}")}"
                 };
-
-                query += "&";
             }
 
             return query;
         }
 
+        private static string HandleCultureOnBuiltInTypes(object val)
+        {
+            const string specifier = "G";
+            var culture = CultureInfo.CreateSpecificCulture("en-CA"); ;
+            return val switch
+            {
+                float f => f.ToString(specifier, culture),
+                decimal d => d.ToString(specifier, culture),
+                double d => d.ToString(specifier, culture),
+                DateTime dt => dt.ToString("O"),
+                _ => val.ToString()
+            };
+        }
+
         private static object HandleEnumerableOfObjects(object val)
         {
-            if (IsPrimitiveType(val) || val is string)
+            if (IsPrimitiveOrValueType(val) || val is string)
                 return val;
 
             throw new EnumerableOfObjectsException("Enumerable of objects is not supported.", val.GetType().Name);
@@ -64,9 +81,14 @@ namespace HttpMessenger.Helpers
             return value[..1].ToLower() + value[1..];
         }
 
-        private static bool IsPrimitiveType(object obj)
+        private static bool IsPrimitiveOrValueType(object obj)
         {
-            return obj != null && obj.GetType().IsPrimitive;
+            return obj != null && obj.GetType().IsPrimitive || obj is ValueType;
+        }
+
+        private static string Encode(string val)
+        {
+            return HttpUtility.UrlEncode(val, Encoding.UTF8) + "&";
         }
     }
 }

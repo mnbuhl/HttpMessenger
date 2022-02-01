@@ -1,4 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using HttpMessenger.Exceptions;
 using HttpMessenger.Helpers;
 using Xunit;
 
@@ -32,6 +35,20 @@ public class QueryParameterTest
         Assert.Equal("?one=1&two=2", result);
     }
     
+    [Fact]
+    public void Query_IsCorrectlyParsed_WhenDateTimeUsed()
+    {
+        // Arrange
+        var date = DateTime.Parse("01/02/2022 22.08.09");
+        var queryParams = new { date };
+        
+        // Act
+        string result = QueryParameterParser.GetQueryString(queryParams);
+        
+        // Assert
+        Assert.Equal("?date=2022-02-01T22%3a08%3a09.0000000", result);
+    }
+    
     private class Person
     {
         public string? Name { get; set; }
@@ -51,6 +68,23 @@ public class QueryParameterTest
         
         // Assert
         Assert.Equal("?name=John&age=30", result);
+    }
+    
+    private record Weather(string City, double Temperature);
+
+    [Fact]
+    public void Query_IsCorrectlyParsed_WhenCustomRecordUsed()
+    {
+        var weather = new Weather("London", 20.5);
+        
+        // Arrange
+        var queryParams = new { weather };
+        
+        // Act
+        string result = QueryParameterParser.GetQueryString(queryParams);
+        
+        // Assert
+        Assert.Equal("?city=London&temperature=20.5", result);
     }
     
     private class Wallet
@@ -99,21 +133,26 @@ public class QueryParameterTest
     
     // A list of objects should be parsed as a query string
     [Fact]
-    public void Query_IsIncorrectlyParsed_WhenArrayOfObjectsUsed()
+    public void Query_ThrowsExceptionWhen_EnumerableOfObjectsUsed()
     {
+        // Arrange
         var person1 = new Person { Name = "John", Age = 30 };
         var person2 = new Person { Name = "Mark", Age = 32 };
-        Person[] arr = { person1, person2 };
 
-        // Arrange
-        var queryParams = new { arr };
-        
         // Act
-        string result = QueryParameterParser.GetQueryString(queryParams);
+        Person[] arr = { person1, person2 };
+        var arrParams = new { arr };
+
+        var list = new List<Person> { person1, person2 };
+        var listParams = new { list };
         
+        var collection = new Collection<Person> { person1, person2 };
+        var collectionParams = new { collection };
+
         // Assert
-        Assert.Equal("?arr=name=John&age=30&arr=name=Mark&age=32", result);
-        Assert.NotEqual("?name=John&age=30&name=Mark&age=32", result);
+        Assert.Throws<EnumerableOfObjectsException>(() => QueryParameterParser.GetQueryString(arrParams));
+        Assert.Throws<EnumerableOfObjectsException>(() => QueryParameterParser.GetQueryString(listParams));
+        Assert.Throws<EnumerableOfObjectsException>(() => QueryParameterParser.GetQueryString(collectionParams));
     }
     
     [Fact]
