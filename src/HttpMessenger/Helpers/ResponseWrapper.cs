@@ -24,6 +24,19 @@ namespace HttpMessenger.Helpers
             StatusCode = statusCode;
             ErrorMessage = errorMessage;
         }
+
+        public void Deconstruct(out T data, out bool success)
+        {
+            success = Success;
+            data = Data;
+        }
+        
+        public void Deconstruct(out T data, out bool success, out int statusCode)
+        {
+            data = Data;
+            success = Success;
+            statusCode = StatusCode;
+        }
     };
     
     /// <summary>
@@ -43,6 +56,12 @@ namespace HttpMessenger.Helpers
             Success = success;
             StatusCode = statusCode;
             ErrorMessage = errorMessage;
+        }
+
+        public void Deconstruct(out bool success, out int statusCode)
+        {
+            success = Success;
+            statusCode = StatusCode;
         }
     };
 }
