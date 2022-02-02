@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using HttpMessenger.Exceptions;
 using HttpMessenger.Helpers;
+using HttpMessenger.Test.Models;
 using Xunit;
 
 namespace HttpMessenger.Test.Unit;
@@ -49,12 +50,6 @@ public class QueryParameterTest
         Assert.Equal("?date=2022-02-01T22%3a08%3a09.0000000", result);
     }
     
-    private class Person
-    {
-        public string? Name { get; set; }
-        public int Age { get; set; }
-    }
-    
     [Fact]
     public void Query_IsCorrectlyParsed_WhenCustomClassUsed()
     {
@@ -69,8 +64,6 @@ public class QueryParameterTest
         // Assert
         Assert.Equal("?name=John&age=30", result);
     }
-    
-    private record Weather(string City, double Temperature);
 
     [Fact]
     public void Query_IsCorrectlyParsed_WhenCustomRecordUsed()
@@ -86,14 +79,7 @@ public class QueryParameterTest
         // Assert
         Assert.Equal("?city=London&temperature=20.5", result);
     }
-    
-    private class Wallet
-    {
-        public string? Currency { get; set; }
-        public long Balance { get; set; }
-        public Person? Person { get; set; }
-    }
-    
+
     [Fact]
     public void Query_IsCorrectlyParsed_WhenClassWithNestedObjectUsed()
     {
