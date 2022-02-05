@@ -181,4 +181,13 @@ public class HttpMessengerTest
         // I'm using is not returning the correct code a 200 OK will do
         Assert.Equal((int)HttpStatusCode.OK, statusCode);
     }
+    
+    [Fact]
+    public async Task DeletePost_WithTResponse_ShouldReturn_200Ok()
+    {
+        var (data, success, statusCode) = await _messenger.Delete<PostDto>("posts/1");
+        
+        Assert.True(success);
+        Assert.Equal((int)HttpStatusCode.OK, statusCode);
+    }
 }

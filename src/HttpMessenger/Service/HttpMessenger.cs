@@ -115,6 +115,18 @@ namespace HttpMessenger.Service
 
             return new ResponseWrapper(true, (int)response.StatusCode);
         }
+        
+        public async Task<ResponseWrapper<TResponse>> Delete<TResponse>(string url)
+        {
+            var response = await _client.DeleteAsync(url);
+
+            if (!response.IsSuccessStatusCode)
+                return await GetErrorResponse<TResponse>(response);
+            
+            var dataResponse = await response.Content.ReadFromJsonAsync<TResponse>(Options);
+
+            return new ResponseWrapper<TResponse>(true, dataResponse, (int)response.StatusCode);
+        }
 
         private static async Task<ResponseWrapper<T>> GetErrorResponse<T>(HttpResponseMessage response)
         {

@@ -112,6 +112,21 @@ public class ProductsService : IProductsService
 }
 ```
 
+### Query Parameters
+Query parameters can be added to the request in two different ways.
+
+The first way is to add them to the anonymous object that can be passed to the get method. Here the variable name will be serialized as the name and the value as the value.
+```c#
+await _messenger.Get<IList<ProductDto>>("products", new { page = 10, pageSize = 10 });
+```
+(Also supports directly passing objects, arrays or lists)
+
+The other way is to add them to the query string manually.
+```c#
+await _messenger.Get<IList<ProductDto>>("products?page=1&pageSize=10");
+```
+
+
 ### Supported HTTP methods
 * GET
 * POST
@@ -120,9 +135,9 @@ public class ProductsService : IProductsService
 * DELETE
 
 ## TODO
-* Simple query parameters (have to be manually added to the url)
-* Proper tests
-* IHttpClientFactory support if you want to use multiple HttpClients
+* Support converting more query parameters
+* More test coverage
+* IHttpClientFactory support if you want to use multiple HttpClients [maybe]
 
 ### Something missing?
 Feel free to open an issue or make a pull request.
