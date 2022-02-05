@@ -72,6 +72,18 @@ namespace HttpMessenger.Service
             return new ResponseWrapper(true, (int)response.StatusCode);
         }
 
+        public async Task<ResponseWrapper<TResponse>> Put<T, TResponse>(string url, T data)
+        {
+            var response = await _client.PutAsJsonAsync(url, data, Options);
+
+            if (!response.IsSuccessStatusCode)
+                return await GetErrorResponse<TResponse>(response);
+            
+            var dataResponse = await response.Content.ReadFromJsonAsync<TResponse>(Options);
+
+            return new ResponseWrapper<TResponse>(true, dataResponse, (int)response.StatusCode);
+        }
+
         public async Task<ResponseWrapper> Patch<T>(string url, T data)
         {
             var response = await _client.PatchAsJsonAsync(url, data, Options);
@@ -80,6 +92,18 @@ namespace HttpMessenger.Service
                 return await GetErrorResponse(response);
 
             return new ResponseWrapper(true, (int)response.StatusCode);
+        }
+
+        public async Task<ResponseWrapper<TResponse>> Patch<T, TResponse>(string url, T data)
+        {
+            var response = await _client.PatchAsJsonAsync(url, data, Options);
+
+            if (!response.IsSuccessStatusCode)
+                return await GetErrorResponse<TResponse>(response);
+            
+            var dataResponse = await response.Content.ReadFromJsonAsync<TResponse>(Options);
+
+            return new ResponseWrapper<TResponse>(true, dataResponse, (int)response.StatusCode);
         }
 
         public async Task<ResponseWrapper> Delete(string url)

@@ -47,6 +47,17 @@ namespace HttpMessenger.Service
         Task<ResponseWrapper> Put<T>(string url, T data);
 
         /// <summary>
+        /// Creates a PUT request to the specified url with the specified data.
+        /// </summary>
+        /// <param name="url">The endpoint to where the request should be made</param>
+        /// <param name="data">The data that is sent with the request</param>
+        /// <typeparam name="T">The type of data that is sent with the request</typeparam>
+        /// <typeparam name="TResponse">The type of the expected data to be returned from the request</typeparam>
+        /// <returns>A <see cref="ResponseWrapper"/> with the data, success status, status code and error message if any</returns>
+        /// <example><code>await HttpMessenger.Put&lt;UpdateProductDto&gt;("products/1", product);</code></example>
+        Task<ResponseWrapper<TResponse>> Put<T, TResponse>(string url, T data);
+
+        /// <summary>
         /// Creates a PATCH request to the specified url with the specified data.
         /// </summary>
         /// <param name="url">The endpoint to where the request should be made</param>
@@ -55,6 +66,17 @@ namespace HttpMessenger.Service
         /// <returns>A <see cref="ResponseWrapper"/> with the success status, status code and error message if any</returns>
         /// <example><code>await HttpMessenger.Patch&lt;UpdateProductDto&gt;("products/1", product);</code></example>
         Task<ResponseWrapper> Patch<T>(string url, T data);
+        
+        /// <summary>
+        /// Creates a PATCH request to the specified url with the specified data.
+        /// </summary>
+        /// <param name="url">The endpoint to where the request should be made</param>
+        /// <param name="data">The data that is sent with the request</param>
+        /// <typeparam name="T">The type of data that is sent with the request</typeparam>
+        /// <typeparam name="TResponse">The type of the expected data to be returned from the request</typeparam>
+        /// <returns>A <see cref="ResponseWrapper"/> with the data, success status, status code and error message if any</returns>
+        /// <example><code>await HttpMessenger.Put&lt;UpdateProductDto&gt;("products/1", product);</code></example>
+        Task<ResponseWrapper<TResponse>> Patch<T, TResponse>(string url, T data);
 
         /// <summary>
         /// Creates a DELETE request to the specified url with the specified data.

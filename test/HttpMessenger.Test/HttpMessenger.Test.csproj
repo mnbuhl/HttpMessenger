@@ -27,4 +27,8 @@
       <ProjectReference Include="..\..\src\HttpMessenger\HttpMessenger.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="Mock" />
+    </ItemGroup>
+
 </Project>
