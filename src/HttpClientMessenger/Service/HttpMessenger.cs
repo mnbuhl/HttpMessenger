@@ -1,16 +1,12 @@
-﻿using System;
-using System.Linq;
-using System.Net.Http;
+﻿using System.Net.Http;
 using System.Net.Http.Json;
-using System.Reflection;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
-using System.Web;
-using HttpMessenger.Helpers;
-using HttpMessenger.Extensions;
+using HttpClientMessenger.Extensions;
+using HttpClientMessenger.Helpers;
 
-namespace HttpMessenger.Service
+namespace HttpClientMessenger.Service
 {
     public class HttpMessenger : IHttpMessenger
     {

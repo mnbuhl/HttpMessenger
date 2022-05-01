@@ -112,6 +112,21 @@ public class ProductsService : IProductsService
 }
 ```
 
+#### Testing example
+```c#
+public class ProductsControllerTests : IntegrationTest // Inject in base class
+{
+    [Fact]
+    public async Task GetProducts_WithSearchParam_ShouldOnly_ReturnMatchingProducts()
+    {
+        var response =
+            await Messenger.Get<PaginatedList<ProductDto>>("products", new { search = "toothpaste", pageSize = 50 });
+
+        response.Data.Should().AllSatisfy(x => x.Name.Contains(searchTerm));
+    }
+}
+```
+
 ### Query Parameters
 Query parameters can be added to the request in two different ways.
 

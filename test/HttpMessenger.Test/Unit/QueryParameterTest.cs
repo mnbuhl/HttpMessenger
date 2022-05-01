@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using HttpMessenger.Exceptions;
-using HttpMessenger.Helpers;
+using HttpClientMessenger.Exceptions;
+using HttpClientMessenger.Helpers;
 using HttpMessenger.Test.Models;
 using Xunit;
 

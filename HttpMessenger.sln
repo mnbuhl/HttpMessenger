@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.31912.275
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HttpMessenger", "src\HttpMessenger\HttpMessenger.csproj", "{9FD25C06-DAC6-4CB9-BF6C-FDEB3D3461AB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HttpClientMessenger", "src\HttpClientMessenger\HttpClientMessenger.csproj", "{9FD25C06-DAC6-4CB9-BF6C-FDEB3D3461AB}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{C581D648-6436-4F3C-BFBE-B38375CDF4F2}"
 EndProject

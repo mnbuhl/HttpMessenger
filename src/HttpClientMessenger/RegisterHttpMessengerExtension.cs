@@ -1,7 +1,7 @@
-﻿using HttpMessenger.Service;
+﻿using HttpClientMessenger.Service;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace HttpMessenger
+namespace HttpClientMessenger
 {
     public static class RegisterHttpMessengerExtension
     {
@@ -12,7 +12,7 @@ namespace HttpMessenger
         /// <returns>The <see cref="IServiceCollection"/> so that additional calls can be chained.</returns>
         public static IServiceCollection AddHttpMessenger(this IServiceCollection services)
         {
-            services.AddScoped<IHttpMessenger, Service.HttpMessenger>();
+            services.AddScoped<IHttpMessenger, HttpMessenger>();
             return services;
         }
     }

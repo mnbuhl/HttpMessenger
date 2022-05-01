@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
-using HttpMessenger.Helpers;
+using HttpClientMessenger.Helpers;
 
-namespace HttpMessenger.Service
+namespace HttpClientMessenger.Service
 {
     public interface IHttpMessenger
     {

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace HttpMessenger.Exceptions
+namespace HttpClientMessenger.Exceptions
 {
     public class EnumerableOfObjectsException : Exception
     {

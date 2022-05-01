@@ -4,7 +4,7 @@ using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 using FluentAssertions;
-using HttpMessenger.Service;
+using HttpClientMessenger.Service;
 using HttpMessenger.Test.Feature.Dto;
 using HttpMessenger.Test.Models;
 using Xunit;
@@ -21,7 +21,7 @@ public class HttpMessengerTest
     {
         _testOutputHelper = testOutputHelper;
         var client = new HttpClient { BaseAddress = new Uri("https://jsonplaceholder.typicode.com/") };
-        _messenger = new Service.HttpMessenger(client);
+        _messenger = new HttpClientMessenger.Service.HttpMessenger(client);
     }
 
     [Fact]

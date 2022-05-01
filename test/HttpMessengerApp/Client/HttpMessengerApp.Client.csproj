@@ -13,7 +13,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\..\src\HttpMessenger\HttpMessenger.csproj" />
+    <ProjectReference Include="..\..\..\src\HttpClientMessenger\HttpClientMessenger.csproj" />
     <ProjectReference Include="..\Shared\HttpMessengerApp.Shared.csproj" />
   </ItemGroup>
 

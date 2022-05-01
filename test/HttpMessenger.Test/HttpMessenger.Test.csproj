@@ -24,7 +24,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\..\src\HttpMessenger\HttpMessenger.csproj" />
+      <ProjectReference Include="..\..\src\HttpClientMessenger\HttpClientMessenger.csproj" />
     </ItemGroup>
 
 </Project>

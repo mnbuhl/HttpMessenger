@@ -1,4 +1,4 @@
-using HttpMessenger;
+using HttpClientMessenger;
 using HttpMessengerApp.Client;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;

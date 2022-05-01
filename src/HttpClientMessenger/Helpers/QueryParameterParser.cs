@@ -1,14 +1,12 @@
 ﻿using System;
 using System.Collections;
-using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Text;
-using System.Text.Json;
 using System.Web;
-using HttpMessenger.Exceptions;
+using HttpClientMessenger.Exceptions;
 
-namespace HttpMessenger.Helpers
+namespace HttpClientMessenger.Helpers
 {
     public static class QueryParameterParser
     {

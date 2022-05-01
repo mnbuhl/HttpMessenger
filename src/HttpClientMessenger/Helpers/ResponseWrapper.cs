@@ -1,6 +1,4 @@
-﻿using System.Net;
-
-namespace HttpMessenger.Helpers
+﻿namespace HttpClientMessenger.Helpers
 {
     /// <summary>
     /// A generic easy to use helper class for wrapping the content from a HTTP response.
