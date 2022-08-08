@@ -17,11 +17,16 @@ namespace HttpClientMessenger.Service
             PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
             NumberHandling = JsonNumberHandling.AllowReadingFromString,
         };
-        private readonly HttpClient _client;
+        public HttpClient Client { get; set; }
 
+
+        internal HttpMessenger()
+        {
+        }
+        
         public HttpMessenger(HttpClient client)
         {
-            _client = client;
+            Client = client;
         }
 
         public async Task<ResponseWrapper<T>> Get<T>(string url, object queryParams = null)
@@ -33,7 +38,7 @@ namespace HttpClientMessenger.Service
                 query = QueryParameterParser.GetQueryString(queryParams);
             }
 
-            var response = await _client.GetAsync(url + query);
+            var response = await Client.GetAsync(url + query);
 
             if (!response.IsSuccessStatusCode)
                 return await GetErrorResponse<T>(response);
@@ -45,7 +50,7 @@ namespace HttpClientMessenger.Service
 
         public async Task<ResponseWrapper<TResponse>> Post<T, TResponse>(string url, T data)
         {
-            var response = await _client.PostAsJsonAsync(url, data, JsonOptions);
+            var response = await Client.PostAsJsonAsync(url, data, JsonOptions);
 
             if (!response.IsSuccessStatusCode)
                 return await GetErrorResponse<TResponse>(response);
@@ -57,7 +62,7 @@ namespace HttpClientMessenger.Service
 
         public async Task<ResponseWrapper> Post<T>(string url, T data)
         {
-            var response = await _client.PostAsJsonAsync(url, data, JsonOptions);
+            var response = await Client.PostAsJsonAsync(url, data, JsonOptions);
 
             if (!response.IsSuccessStatusCode)
                 return await GetErrorResponse(response);
@@ -67,7 +72,7 @@ namespace HttpClientMessenger.Service
 
         public async Task<ResponseWrapper<TResponse>> PostAsFormData<T, TResponse>(string url, T data) where T : HttpContent
         {
-            var response = await _client.PostAsync(url, data);
+            var response = await Client.PostAsync(url, data);
 
             if (!response.IsSuccessStatusCode)
                 return await GetErrorResponse<TResponse>(response);
@@ -79,7 +84,7 @@ namespace HttpClientMessenger.Service
 
         public async Task<ResponseWrapper> PostAsFormData<T>(string url, T data) where T : HttpContent
         {
-            var response = await _client.PostAsync(url, data);
+            var response = await Client.PostAsync(url, data);
 
             if (!response.IsSuccessStatusCode)
                 return await GetErrorResponse(response);
@@ -89,7 +94,7 @@ namespace HttpClientMessenger.Service
 
         public async Task<ResponseWrapper> Put<T>(string url, T data)
         {
-            var response = await _client.PutAsJsonAsync(url, data, JsonOptions);
+            var response = await Client.PutAsJsonAsync(url, data, JsonOptions);
 
             if (!response.IsSuccessStatusCode)
                 return await GetErrorResponse(response);
@@ -99,7 +104,7 @@ namespace HttpClientMessenger.Service
 
         public async Task<ResponseWrapper<TResponse>> Put<T, TResponse>(string url, T data)
         {
-            var response = await _client.PutAsJsonAsync(url, data, JsonOptions);
+            var response = await Client.PutAsJsonAsync(url, data, JsonOptions);
 
             if (!response.IsSuccessStatusCode)
                 return await GetErrorResponse<TResponse>(response);
@@ -111,7 +116,7 @@ namespace HttpClientMessenger.Service
 
         public async Task<ResponseWrapper<TResponse>> PutAsFormData<T, TResponse>(string url, T data) where T : HttpContent
         {
-            var response = await _client.PutAsync(url, data);
+            var response = await Client.PutAsync(url, data);
 
             if (!response.IsSuccessStatusCode)
                 return await GetErrorResponse<TResponse>(response);
@@ -123,7 +128,7 @@ namespace HttpClientMessenger.Service
 
         public async Task<ResponseWrapper> PutAsFormData<T>(string url, T data) where T : HttpContent
         {
-            var response = await _client.PutAsync(url, data);
+            var response = await Client.PutAsync(url, data);
 
             if (!response.IsSuccessStatusCode)
                 return await GetErrorResponse(response);
@@ -133,7 +138,7 @@ namespace HttpClientMessenger.Service
 
         public async Task<ResponseWrapper> Patch<T>(string url, T data)
         {
-            var response = await _client.PatchAsJsonAsync(url, data, JsonOptions);
+            var response = await Client.PatchAsJsonAsync(url, data, JsonOptions);
 
             if (!response.IsSuccessStatusCode)
                 return await GetErrorResponse(response);
@@ -143,7 +148,7 @@ namespace HttpClientMessenger.Service
 
         public async Task<ResponseWrapper<TResponse>> Patch<T, TResponse>(string url, T data)
         {
-            var response = await _client.PatchAsJsonAsync(url, data, JsonOptions);
+            var response = await Client.PatchAsJsonAsync(url, data, JsonOptions);
 
             if (!response.IsSuccessStatusCode)
                 return await GetErrorResponse<TResponse>(response);
@@ -155,7 +160,7 @@ namespace HttpClientMessenger.Service
 
         public async Task<ResponseWrapper<TResponse>> PatchAsFormData<T, TResponse>(string url, T data) where T : HttpContent
         {
-            var response = await _client.PatchAsync(url, data);
+            var response = await Client.PatchAsync(url, data);
 
             if (!response.IsSuccessStatusCode)
                 return await GetErrorResponse<TResponse>(response);
@@ -167,7 +172,7 @@ namespace HttpClientMessenger.Service
 
         public async Task<ResponseWrapper> PatchAsFormData<T>(string url, T data) where T : HttpContent
         {
-            var response = await _client.PatchAsync(url, data);
+            var response = await Client.PatchAsync(url, data);
 
             if (!response.IsSuccessStatusCode)
                 return await GetErrorResponse(response);
@@ -177,7 +182,7 @@ namespace HttpClientMessenger.Service
 
         public async Task<ResponseWrapper> Delete(string url)
         {
-            var response = await _client.DeleteAsync(url);
+            var response = await Client.DeleteAsync(url);
 
             if (!response.IsSuccessStatusCode)
                 return await GetErrorResponse(response);
@@ -187,7 +192,7 @@ namespace HttpClientMessenger.Service
         
         public async Task<ResponseWrapper<TResponse>> Delete<TResponse>(string url)
         {
-            var response = await _client.DeleteAsync(url);
+            var response = await Client.DeleteAsync(url);
 
             if (!response.IsSuccessStatusCode)
                 return await GetErrorResponse<TResponse>(response);

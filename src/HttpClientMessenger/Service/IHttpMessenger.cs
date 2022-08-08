@@ -1,4 +1,5 @@
 ﻿using System.Net.Http;
+using System.Text.Json;
 using System.Threading.Tasks;
 using HttpClientMessenger.Helpers;
 
@@ -6,6 +7,9 @@ namespace HttpClientMessenger.Service
 {
     public interface IHttpMessenger
     {
+        JsonSerializerOptions JsonOptions { get; set; }
+        HttpClient Client { get; set; }
+        
         /// <summary>
         /// Creates a GET request to the specified url with the specified data.
         /// </summary>
