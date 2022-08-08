@@ -27,4 +27,10 @@
       <ProjectReference Include="..\..\src\HttpClientMessenger\HttpClientMessenger.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <None Update="Resources\placeholder.png">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </None>
+    </ItemGroup>
+
 </Project>
