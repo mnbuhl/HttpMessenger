@@ -4,14 +4,14 @@
     <TargetFramework>netstandard2.1</TargetFramework>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageOutputPath>./nupkg</PackageOutputPath>
-    <PackageVersion>1.0.2</PackageVersion>
+    <PackageVersion>1.0.3</PackageVersion>
     <PackageId>HttpMessenger</PackageId>
     <Title>HttpMessenger</Title>
     <RepositoryType>git</RepositoryType>
     <RepositoryUrl>https://github.com/mnbuhl/HttpMessenger</RepositoryUrl>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <Authors>Mikkel Buhl</Authors>
-    <Description>A simple HttpMessenger that makes it easy to make type strong requests in ASP.NET Core Web Applications (Blazor, MVC and Razor)</Description>
+    <Description>A simple HttpMessenger that makes it easy to make type strong requests in ASP.NET Core Web Applications (Blazor, MVC and Razor) (and is amazing for integration testing your API)</Description>
     <RootNamespace>HttpClientMessenger</RootNamespace>
   </PropertyGroup>
 

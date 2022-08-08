@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
@@ -12,12 +13,12 @@ using Xunit.Abstractions;
 
 namespace HttpMessenger.Test.Feature;
 
-public class HttpMessengerTest
+public class HttpMessengerTests
 {
     private readonly ITestOutputHelper _testOutputHelper;
     private readonly IHttpMessenger _messenger;
 
-    public HttpMessengerTest(ITestOutputHelper testOutputHelper)
+    public HttpMessengerTests(ITestOutputHelper testOutputHelper)
     {
         _testOutputHelper = testOutputHelper;
         var client = new HttpClient { BaseAddress = new Uri("https://jsonplaceholder.typicode.com/") };
@@ -111,6 +112,45 @@ public class HttpMessengerTest
         
         Assert.Equal(postDto.Title, data.Title);
         Assert.Equal(postDto.Body, data.Body);
+        Assert.True(success);
+        Assert.Equal((int)HttpStatusCode.Created, statusCode);
+    }
+
+    [Fact]
+    public async Task CreatePost_AsFormData_ShouldReturn201Created()
+    {
+        var formData = new FormUrlEncodedContent(new[]
+        {
+            new KeyValuePair<string, string>("title", "Test Post"),
+            new KeyValuePair<string, string>("body", "Test Body"),
+            new KeyValuePair<string, string>("userId", "1")
+        });
+        
+        var postDto = new PostDto(1, "Test Post", "Test Body", 1);
+        
+        (var data, bool success, int statusCode) = 
+            await _messenger.PostAsFormData<FormUrlEncodedContent, PostDto>("posts", formData);
+        
+        Assert.Equal(postDto.Title, data.Title);
+        Assert.Equal(postDto.Body, data.Body);
+        Assert.True(success);
+        Assert.Equal((int)HttpStatusCode.Created, statusCode);
+    }
+    
+    [Fact]
+    public async Task CreatePost_AsMultipartFormData_ShouldReturn201Created()
+    {
+        var file = await File.ReadAllBytesAsync(Path.GetFullPath("./Resources/placeholder.png"));
+        
+        var formData = new MultipartFormDataContent();
+        formData.Add(new StringContent("Test Post"), "title");
+        formData.Add(new StringContent("Test body"), "body");
+        formData.Add(new StringContent("1"), "userId");
+        formData.Add(new ByteArrayContent(file), "file", "placeholder.png");
+        
+        (var data, bool success, int statusCode) = 
+            await _messenger.PostAsFormData<MultipartFormDataContent, PostDto>("posts", formData);
+        
         Assert.True(success);
         Assert.Equal((int)HttpStatusCode.Created, statusCode);
     }
